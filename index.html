@@ -315,6 +315,20 @@
       line-height:1.7;
       font-size:15px;
     }
+    .slides-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:20px;
+    }
+    .slide-actions{
+      margin-top:18px;
+      position:relative;
+      z-index:1;
+    }
+    .slide-actions a{
+      width:100%;
+      text-align:center;
+    }
     .projects-box .cards{
       grid-template-columns:1fr;
       max-width:420px;
@@ -430,24 +444,20 @@
     <div class="container">
       <div class="section-box">
         <h2 class="section-title">Slides Gallery</h2>
-        <div class="cards">
-          <article class="card">
-            <span class="tag">Slides 01</span>
-            <h3>Intro to ML</h3>
-            <p>מבוא ללמידת מכונה: נתונים, תכונות, אימון, בדיקה, דיוק ומודל.</p>
-          </article>
-
-          <article class="card">
-            <span class="tag">Slides 02</span>
-            <h3>KNN vs SVM</h3>
-            <p>השוואה בין מסווגים נפוצים, כולל יתרונות, מגבלות ודוגמאות תוצאות.</p>
-          </article>
-
-          <article class="card">
-            <span class="tag">Slides 03</span>
-            <h3>Image Models</h3>
-            <p>עבודה עם תמונות, הכנת דאטה, חלוקה ל-Train/Test והערכת מודלים.</p>
-          </article>
+        <div class="slides-grid">
+          <article class="card"><span class="tag">PDF</span><h3>14.1 Feature engineering</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="14.1 Feature engineering.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>2.1 Python for DS</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="2.1 Python for DS.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>3.1 Visualization</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="3.1 Visualization.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>4.2 Linear regression with sklearn</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>4.3 Linear regresssion analytic solution</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="4.3 Linear regresssion analytic solution.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>5.1 KNN</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="5.1 KNN.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>5.2 KNN with Sklearn</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>5.3 KNN with code implementation</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>Data preparation</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="Data preparation.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>Percepton and SVM</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="Percepton and SVM.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>Performance Indicators updated</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="Performance Indicators updated.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>יישום מכונה לומדת</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="יישום מכונה לומדת.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
+          <article class="card"><span class="tag">PDF</span><h3>מאגרי נתונים וטבלאות</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="מאגרי נתונים וטבלאות.pdf" target="_blank">פתיחת המצגת</a></div></article>
         </div>
       </div>
     </div>
