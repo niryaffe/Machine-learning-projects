@@ -6,342 +6,380 @@
 <title>Machine Learning Lab</title>
 
 <style>
-
 :root{
---bg:#0b2a4a;
---panel:#123a63;
---panel-soft:#174a7c;
---line:#2d6aa3;
---text:#ffffff;
---muted:#cfe3ff;
---accent:#ffffff;
---shadow:0 10px 30px rgba(0,0,0,0.45);
+  --bg:#000000;
+  --panel:#111111;
+  --panel-soft:#1a1a1a;
+  --line:#333333;
+  --text:#ffffff;
+  --muted:#d0d0d0;
+  --button:#8c8c8c;
+  --button-hover:#a6a6a6;
 }
 
 *{box-sizing:border-box}
 
+html{scroll-behavior:smooth}
+
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:var(--bg);
-color:var(--text);
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
 .container{
-width:min(1200px, calc(100% - 30px));
-margin:auto;
+  width:min(1200px, calc(100% - 30px));
+  margin:auto;
 }
 
 nav{
-position:sticky;
-top:0;
-background:#0b2a4a;
-border-bottom:1px solid var(--line);
-z-index:10;
+  position:sticky;
+  top:0;
+  background:#000000;
+  border-bottom:1px solid var(--line);
+  z-index:10;
 }
 
 .nav-inner{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:12px;
-padding:16px 0;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  padding:16px 0;
 }
 
 nav a{
-color:white;
-text-decoration:none;
-padding:10px 18px;
-border-radius:999px;
-border:1px solid var(--line);
-background:#174a7c;
-font-weight:700;
+  color:var(--text);
+  text-decoration:none;
+  padding:10px 18px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#1f1f1f;
+  font-weight:700;
 }
 
 nav a:hover{
-background:white;
-color:#0b2a4a;
+  background:var(--button);
+  color:#000000;
 }
 
 header{
-padding:80px 0;
-text-align:center;
+  padding:80px 0;
+  text-align:center;
 }
 
 .hero{
-background:var(--panel);
-border-radius:20px;
-padding:60px 30px;
-border:1px solid var(--line);
-box-shadow:var(--shadow);
+  background:var(--panel);
+  border-radius:20px;
+  padding:60px 30px;
+  border:1px solid var(--line);
 }
 
 h1{
-font-size:64px;
-margin:0;
+  font-size:60px;
+  margin:0;
 }
 
 .subtitle{
-margin-top:20px;
-font-size:22px;
-color:var(--muted);
-}
-
-.hero-actions{
-margin-top:30px;
-}
-
-.btn{
-display:inline-block;
-padding:12px 22px;
-border-radius:999px;
-text-decoration:none;
-font-weight:bold;
-border:1px solid var(--line);
-}
-
-.btn-primary{
-background:white;
-color:#0b2a4a;
+  margin-top:20px;
+  font-size:22px;
+  color:var(--muted);
 }
 
 section{
-padding:30px 0;
+  padding:40px 0;
 }
 
 .section-box{
-background:var(--panel);
-border-radius:20px;
-padding:30px;
-border:1px solid var(--line);
-box-shadow:var(--shadow);
+  background:var(--panel);
+  border-radius:20px;
+  padding:30px;
+  border:1px solid var(--line);
 }
 
 .section-title{
-text-align:center;
-margin-bottom:25px;
-font-size:32px;
+  text-align:center;
+  margin-bottom:25px;
+  font-size:32px;
 }
 
 .cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
 }
 
 .card{
-background:var(--panel-soft);
-border:1px solid var(--line);
-border-radius:16px;
-padding:22px;
+  background:var(--panel-soft);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px;
 }
 
 .card h3{
-margin:0 0 10px 0;
+  margin:0 0 10px 0;
 }
 
 .card p{
-color:var(--muted);
+  color:var(--muted);
+  line-height:1.8;
 }
 
 .tag{
-display:inline-block;
-background:white;
-color:#0b2a4a;
-padding:6px 10px;
-border-radius:8px;
-font-size:12px;
-margin-bottom:12px;
-font-weight:bold;
+  display:inline-block;
+  background:#ffffff;
+  color:#000000;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px;
+  margin-bottom:12px;
+  font-weight:bold;
 }
 
 .slide-actions{
-margin-top:14px;
+  margin-top:14px;
+}
+
+.slide-actions a,
+.btn{
+  display:inline-block;
+  text-align:center;
+  padding:10px 16px;
+  background:var(--button);
+  color:#000000;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:bold;
+  border:none;
 }
 
 .slide-actions a{
-display:block;
-text-align:center;
-padding:10px;
-background:white;
-color:#0b2a4a;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
+  width:100%;
+}
+
+.slide-actions a:hover,
+.btn:hover{
+  background:var(--button-hover);
+}
+
+.guidelines ul{
+  line-height:1.9;
 }
 
 .links-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
 }
 
 .resource-link{
-display:block;
-background:var(--panel-soft);
-border:1px solid var(--line);
-border-radius:16px;
-padding:18px;
-color:white;
-text-decoration:none;
+  display:block;
+  background:var(--panel-soft);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  color:var(--text);
+  text-decoration:none;
+}
+
+.resource-link strong{
+  display:block;
+  margin-bottom:8px;
 }
 
 .resource-link span{
-color:var(--muted);
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.resource-link:hover{
+  background:#222222;
 }
 
 footer{
-text-align:center;
-padding:40px;
-color:var(--muted);
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
 }
-
 </style>
 </head>
 
 <body>
 
 <nav>
-<div class="container nav-inner">
-<a href="#home">בית</a>
-<a href="#slides">מצגות</a>
-<a href="#datasets">מאגרי נתונים</a>
-<a href="project-guidelines.html">הנחיות לפרויקט</a>
-</div>
+  <div class="container nav-inner">
+    <a href="#home">בית</a>
+    <a href="#guidelines">הנחיות לפרויקט</a>
+    <a href="#slides">מצגות</a>
+    <a href="#datasets">מאגרי נתונים</a>
+    <a href="#tech-center">מרכז טק</a>
+  </div>
 </nav>
 
 <header id="home">
-<div class="container hero">
-<h1>Machine Learning Lab</h1>
-<p class="subtitle">
-אתר תלמידים לפרויקטים, מצגות וחומרי לימוד בלמידת מכונה
-</p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="#slides">מצגות הקורס</a>
-</div>
-</div>
+  <div class="container hero">
+    <h1>Machine Learning Lab</h1>
+    <p class="subtitle">
+      אתר תלמידים לפרויקטים, מצגות וחומרי לימוד בלמידת מכונה
+    </p>
+  </div>
 </header>
 
+<section id="guidelines">
+  <div class="container">
+    <div class="section-box guidelines">
+      <h2 class="section-title">הנחיות לפרויקט</h2>
+      <ul>
+        <li>שער עם שם התלמיד, שם המחקר ושנת הלימודים.</li>
+        <li>הקדמה קצרה המתארת את מטרת המחקר.</li>
+        <li>תיאור מאגר הנתונים וקישור למקור הנתונים.</li>
+        <li>ניתוח נתונים באמצעות גרפים ו-groupby.</li>
+        <li>בדיקת קורלציה בין המשתנים.</li>
+        <li>ניקוי נתונים והכנתם ללמידת מכונה.</li>
+        <li>חלוקה ל-Train ו-Test.</li>
+        <li>הרצת לפחות שני מודלי Machine Learning.</li>
+        <li>בדיקת Accuracy ומטריצת בלבול.</li>
+        <li>סיכום ומסקנות.</li>
+      </ul>
+      <div style="margin-top:20px;">
+        <a class="btn" href="project-guidelines.html">פתיחת עמוד ההנחיות המלא</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="slides">
-<div class="container">
-<div class="section-box">
+  <div class="container">
+    <div class="section-box">
+      <h2 class="section-title">Slides Gallery</h2>
 
-<h2 class="section-title">Slides Gallery</h2>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Feature Engineering</h3>
+          <div class="slide-actions">
+            <a href="14.1 Feature engineering.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="cards">
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Python for DS</h3>
+          <div class="slide-actions">
+            <a href="2.1 Python for DS.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Feature Engineering</h3>
-<div class="slide-actions">
-<a href="14.1 Feature engineering.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Visualization</h3>
+          <div class="slide-actions">
+            <a href="3.1 Visualization.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Python for DS</h3>
-<div class="slide-actions">
-<a href="2.1 Python for DS.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Linear Regression</h3>
+          <div class="slide-actions">
+            <a href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Visualization</h3>
-<div class="slide-actions">
-<a href="3.1 Visualization.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>KNN</h3>
+          <div class="slide-actions">
+            <a href="5.1 KNN.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Linear Regression</h3>
-<div class="slide-actions">
-<a href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>KNN with Sklearn</h3>
+          <div class="slide-actions">
+            <a href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>KNN</h3>
-<div class="slide-actions">
-<a href="5.1 KNN.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>KNN Implementation</h3>
+          <div class="slide-actions">
+            <a href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>KNN with Sklearn</h3>
-<div class="slide-actions">
-<a href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Data Preparation</h3>
+          <div class="slide-actions">
+            <a href="Data preparation.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>KNN Implementation</h3>
-<div class="slide-actions">
-<a href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Perceptron & SVM</h3>
+          <div class="slide-actions">
+            <a href="Percepton and SVM.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
 
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Data Preparation</h3>
-<div class="slide-actions">
-<a href="Data preparation.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
-
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Perceptron & SVM</h3>
-<div class="slide-actions">
-<a href="Percepton and SVM.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
-
-<div class="card">
-<span class="tag">PDF</span>
-<h3>Performance Indicators</h3>
-<div class="slide-actions">
-<a href="Performance Indicators updated.pptx.pdf" target="_blank">פתח מצגת</a>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
+        <div class="card">
+          <span class="tag">PDF</span>
+          <h3>Performance Indicators</h3>
+          <div class="slide-actions">
+            <a href="Performance Indicators updated.pptx.pdf" target="_blank">פתח מצגת</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="datasets">
-<div class="container">
-<div class="section-box">
+  <div class="container">
+    <div class="section-box">
+      <h2 class="section-title">מאגרי נתונים</h2>
 
-<h2 class="section-title">Datasets</h2>
+      <div class="links-grid">
+        <a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank">
+          <strong>Kaggle</strong>
+          <span>מאגר datasets גדול ללמידת מכונה</span>
+        </a>
 
-<div class="links-grid">
+        <a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank">
+          <strong>Google Dataset Search</strong>
+          <span>חיפוש datasets למחקר</span>
+        </a>
 
-<a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank">
-<strong>Kaggle</strong>
-<span>מאגר datasets גדול ללמידת מכונה</span>
-</a>
+        <a class="resource-link" href="https://data.gov/" target="_blank">
+          <strong>Data.gov</strong>
+          <span>מאגרי מידע פתוחים של הממשל</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank">
-<strong>Google Dataset Search</strong>
-<span>חיפוש datasets למחקר</span>
-</a>
-
-</div>
-
-</div>
-</div>
+<section id="tech-center">
+  <div class="container">
+    <div class="section-box">
+      <h2 class="section-title">מרכז טק</h2>
+      <p style="text-align:center; color:var(--muted); margin-bottom:20px;">
+        מעבר לאתר הרשמי של מרכז טק
+      </p>
+      <div style="text-align:center;">
+        <a class="btn" href="https://www.tech-center.org/" target="_blank">כניסה לאתר מרכז טק</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-Machine Learning Lab
+  Machine Learning Lab
 </footer>
 
 </body>
