@@ -9,19 +9,16 @@
   --bg:#070b12;
   --bg2:#0c1320;
   --panel:rgba(18,24,38,.82);
-  --panel-strong:rgba(24,32,49,.94);
   --panel-soft:rgba(28,38,58,.92);
   --border:rgba(125,175,255,.16);
   --border-strong:rgba(125,175,255,.34);
   --text:#f7faff;
   --muted:#c3cfe0;
   --accent:#8dbcff;
-  --accent-soft:#dfeaff;
   --button:#eef4ff;
   --button-text:#0d1a2b;
   --glow:0 0 0 1px rgba(125,175,255,.14), 0 16px 38px rgba(0,0,0,.42);
   --shadow:0 22px 50px rgba(0,0,0,.42);
-  --radius:24px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -78,6 +75,7 @@ nav a, .lang-btn{
   border-radius:999px;
   font-weight:700;
   font-size:16px;
+  font-family:Arial, Helvetica, sans-serif;
   background:rgba(255,255,255,.02);
   cursor:pointer;
   transition:.22s ease;
@@ -114,18 +112,6 @@ header{
   filter:blur(20px);
   pointer-events:none;
 }
-.hero::after{
-  content:"";
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  bottom:-150px;
-  right:-90px;
-  background:radial-gradient(circle, rgba(141,188,255,.10), transparent 68%);
-  filter:blur(18px);
-  pointer-events:none;
-}
 .hero h1{
   font-size:clamp(52px,8vw,86px);
   margin:6px 0 14px;
@@ -157,27 +143,21 @@ header{
   border-radius:14px;
   font-weight:800;
   font-size:17px;
+  font-family:Arial, Helvetica, sans-serif;
   display:inline-block;
   transition:.22s ease;
 }
 .btn-primary{
   background:var(--button);
   color:var(--button-text);
-  box-shadow:0 12px 26px rgba(238,244,255,.10);
 }
-.btn-primary:hover{
-  transform:translateY(-1px);
-  background:#f7faff;
-}
+.btn-primary:hover{transform:translateY(-1px); background:#f7faff;}
 .btn-secondary{
   border:1px solid var(--border);
   color:white;
   background:rgba(255,255,255,.03);
 }
-.btn-secondary:hover{
-  border-color:var(--border-strong);
-  transform:translateY(-1px);
-}
+.btn-secondary:hover{border-color:var(--border-strong); transform:translateY(-1px);}
 
 section{padding:20px 0 28px;}
 .section-box{
@@ -220,7 +200,6 @@ section{padding:20px 0 28px;}
   line-height:1.82;
   font-size:18px;
 }
-.card ul{margin:0; padding-inline-start:24px;}
 .card a{
   display:block;
   margin-top:16px;
@@ -232,6 +211,7 @@ section{padding:20px 0 28px;}
   border-radius:12px;
   font-weight:800;
   font-size:16px;
+  font-family:Arial, Helvetica, sans-serif;
 }
 .card a:hover{background:#f7faff;}
 
@@ -257,17 +237,13 @@ section{padding:20px 0 28px;}
   outline:none;
   color:white;
   font-size:18px;
-  font-family:inherit;
+  font-family:Arial, Helvetica, sans-serif;
 }
 .search-wrap input::placeholder{color:#93a6c5;}
-.search-wrap span{
-  color:#a5c4f6;
-  font-size:20px;
-}
 
 .details-list{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:18px;
 }
 .detail-item{
@@ -343,10 +319,7 @@ footer{padding:30px 0 52px;}
   <div class="container">
     <div class="hero">
       <h1 data-i18n="hero_title">Machine Learning Lab</h1>
-      <p data-i18n="hero_subtitle">
-        אתר הקורס ללמידת מכונה. כאן ניתן למצוא מצגות לפי נושאים,
-        הנחיות לפרויקט ומאגרי נתונים מומלצים לפרויקטים.
-      </p>
+      <p data-i18n="hero_subtitle">אתר הקורס ללמידת מכונה. כאן ניתן למצוא מצגות לפי נושאים, הנחיות לפרויקט ומאגרי נתונים מומלצים לפרויקטים.</p>
       <div class="hero-buttons">
         <a class="btn btn-primary" href="#slides" data-i18n="hero_btn_slides">מצגות הקורס</a>
         <a class="btn btn-secondary" href="#guidelines" data-i18n="hero_btn_guidelines">הנחיות לפרויקט</a>
@@ -362,20 +335,20 @@ footer{padding:30px 0 52px;}
       <h2 class="section-title" data-i18n="guidelines_title">הנחיות לפרויקט</h2>
       <div class="grid">
         <div class="card">
-          <h3 data-i18n="g1_title">שער</h3>
-          <p data-i18n="g1_text">שם תלמיד, שם הפרויקט, שנת לימודים ושם המורה.</p>
+          <h3 data-i18n="g1_title">שער ונושא המחקר</h3>
+          <p data-i18n="g1_text">שם תלמיד/ה + ת״ז, שם המחקר, שנת לימודים, שם המורה, הקדמה קצרה ותמונה הקשורה למאגר או לפרויקט.</p>
         </div>
         <div class="card">
           <h3 data-i18n="g2_title">תיאור הנתונים</h3>
-          <p data-i18n="g2_text">הצגת מאגר הנתונים, מקור הנתונים והעמודות המרכזיות.</p>
+          <p data-i18n="g2_text">תיאור קצר של מאגר הנתונים, מקור הנתונים, קישור למאגר, סוגי הנתונים במאגר והעמודות שיכולות לשמש כתכונות וכמטרה.</p>
         </div>
         <div class="card">
           <h3 data-i18n="g3_title">חקר נתונים</h3>
-          <p data-i18n="g3_text">ניתוח נתונים באמצעות גרפים, describe, info ו-groupby.</p>
+          <p data-i18n="g3_text">טעינת נתונים, info, describe, לפחות 2 פקודות groupby, לפחות 5 גרפים שונים והצגת קורלציה עם heatmap.</p>
         </div>
         <div class="card">
-          <h3 data-i18n="g4_title">למידת מכונה</h3>
-          <p data-i18n="g4_text">חלוקה ל-Train/Test והרצת לפחות שני מודלים.</p>
+          <h3 data-i18n="g4_title">עיבוד ולמידת מכונה</h3>
+          <p data-i18n="g4_text">ניקוי נתונים, איזון תגיות, נרמול, הנדסת מאפיינים, חלוקה ל-Train/Test, אימון לפחות שני אלגוריתמים ובחינת ביצועים.</p>
         </div>
       </div>
     </div>
@@ -392,59 +365,73 @@ footer{padding:30px 0 52px;}
           <ul>
             <li data-i18n="dsec1_1">שם תלמיד/ה + ת״ז</li>
             <li data-i18n="dsec1_2">שם המחקר</li>
-            <li data-i18n="dsec1_3">שנת לימודים ושם המורה</li>
-            <li data-i18n="dsec1_4">הקדמה קצרה על מטרת המחקר</li>
-            <li data-i18n="dsec1_5">תמונה הקשורה למאגר או לפרויקט</li>
+            <li data-i18n="dsec1_3">שנת לימודים</li>
+            <li data-i18n="dsec1_4">שם המורה</li>
+            <li data-i18n="dsec1_5">הקדמה - תיאור קצר של מטרת המחקר ושל מה הסיווג</li>
+            <li data-i18n="dsec1_6">תמונה הקשורה למאגר הנתונים או לפרויקט</li>
           </ul>
         </div>
+
         <div class="detail-item">
           <h4 data-i18n="dsec2_title">תיאור הנתונים</h4>
           <ul>
             <li data-i18n="dsec2_1">תיאור קצר של מאגר הנתונים</li>
-            <li data-i18n="dsec2_2">מקור הנתונים, גרסאות ותאריך עדכון</li>
+            <li data-i18n="dsec2_2">מקור הנתונים: מאיפה נלקח, מי הכין, טווח זמנים, גרסאות ותאריך עדכון אחרון</li>
             <li data-i18n="dsec2_3">קישור למאגר הנתונים</li>
-            <li data-i18n="dsec2_4">מספר שורות, עמודות וסוגי משתנים</li>
-            <li data-i18n="dsec2_5">הגדרת תכונות ומטרת הסיווג</li>
+            <li data-i18n="dsec2_4">כמה רשומות, כמה עמודות, אילו סוגי נתונים ומה משמעות כל עמודה</li>
+            <li data-i18n="dsec2_5">אילו עמודות יכולות לשמש כתכונות לסיווג וכמטרה</li>
           </ul>
         </div>
+
         <div class="detail-item">
           <h4 data-i18n="dsec3_title">חקר נתונים</h4>
           <ul>
-            <li data-i18n="dsec3_1">טעינת הנתונים והצגה ראשונית</li>
-            <li data-i18n="dsec3_2">שימוש ב-info ו-describe</li>
-            <li data-i18n="dsec3_3">לפחות 2 פקודות groupby</li>
-            <li data-i18n="dsec3_4">לפחות 5 גרפים שונים</li>
-            <li data-i18n="dsec3_5">Heatmap לקורלציה</li>
+            <li data-i18n="dsec3_1">טעינת נתונים והצגה של נתונים מהמאגר</li>
+            <li data-i18n="dsec3_2">הצגת info על המאגר: סוגים, רשומות מלאות, כמות מכל סיווג ונתונים חסרים</li>
+            <li data-i18n="dsec3_3">שימוש ב-describe: ממוצעים, סטיות תקן, מינימום, חציונים ומקסימום</li>
+            <li data-i18n="dsec3_4">לפחות 2 פקודות groupby ולרשום מסקנה לכל פקודה</li>
+            <li data-i18n="dsec3_5">לפחות 5 סוגי גרפים שונים, כותרות, הסברים, מסקנות והשערות מכל גרף</li>
+            <li data-i18n="dsec3_6">הצגת קורלציה עם heatmap בין המאפיינים לשאלת המחקר</li>
           </ul>
         </div>
+
         <div class="detail-item">
-          <h4 data-i18n="dsec4_title">עיבוד וטיוב נתונים</h4>
+          <h4 data-i18n="dsec4_title">עיבוד נתונים וטיוב</h4>
           <ul>
-            <li data-i18n="dsec4_1">טיפול בערכים חסרים</li>
-            <li data-i18n="dsec4_2">זיהוי כפילויות וחריגים</li>
-            <li data-i18n="dsec4_3">איזון תגיות במידת הצורך</li>
-            <li data-i18n="dsec4_4">נרמול והנדסת מאפיינים</li>
-            <li data-i18n="dsec4_5">המרת משתנים קטגוריאליים למספריים</li>
+            <li data-i18n="dsec4_1">זיהוי ערכים חסרים - השלמה או הסרה בהתאם</li>
+            <li data-i18n="dsec4_2">זיהוי חריגים וטיפול (רשות)</li>
+            <li data-i18n="dsec4_3">זיהוי כפילויות וטיפול</li>
+            <li data-i18n="dsec4_4">איזון תגיות במקרי קיצון</li>
+            <li data-i18n="dsec4_5">נרמול הנתונים</li>
+            <li data-i18n="dsec4_6">הנדסת מאפיינים - הוספת והורדת משתנים</li>
+            <li data-i18n="dsec4_7">הפיכת משתנים קטגוריאליים למספריים, כולל One Hot Encoding</li>
           </ul>
         </div>
+
         <div class="detail-item">
           <h4 data-i18n="dsec5_title">למידת מכונה וביצועים</h4>
           <ul>
-            <li data-i18n="dsec5_1">בחירת עמודות לקלט</li>
-            <li data-i18n="dsec5_2">חלוקה ל-Train ו-Test</li>
-            <li data-i18n="dsec5_3">לפחות שני אלגוריתמים</li>
-            <li data-i18n="dsec5_4">Accuracy, Precision, Recall, F1</li>
-            <li data-i18n="dsec5_5">מטריצת בלבול וניתוח מסקנות</li>
+            <li data-i18n="dsec5_1">בחירת עמודות לקלט והסבר מדוע נבחרו או הוסרו</li>
+            <li data-i18n="dsec5_2">חלוקת הנתונים לקבוצת אימון וקבוצת בדיקה</li>
+            <li data-i18n="dsec5_3">אימון וחיזוי באמצעות לפחות שני אלגוריתמים שלמדנו</li>
+            <li data-i18n="dsec5_4">מטריצת בלבול, Accuracy, Precision, Recall, F1 וממוצעים</li>
+            <li data-i18n="dsec5_5">ניתוח ומסקנות</li>
+            <li data-i18n="dsec5_6">חקר השפעת שינוי היפר-פרמטרים על הביצועים ב-KNN וב-SVC</li>
+            <li data-i18n="dsec5_7">הצגת השינויים במדד ביצוע כללי כמו Accuracy או F1</li>
           </ul>
         </div>
+
         <div class="detail-item">
-          <h4 data-i18n="dsec6_title">סיכום וכללי הגשה</h4>
+          <h4 data-i18n="dsec6_title">סיכום, כללי הגשה וקריטריונים</h4>
           <ul>
-            <li data-i18n="dsec6_1">סיכום ומסקנות</li>
-            <li data-i18n="dsec6_2">רפלקציה אישית</li>
-            <li data-i18n="dsec6_3">תיעוד מסודר של הקוד</li>
-            <li data-i18n="dsec6_4">שמירה על קריאות והגשה מסודרת</li>
-            <li data-i18n="dsec6_5">עמידה בדרישות המאגר והסיווג</li>
+            <li data-i18n="dsec6_1">סיכום ומסקנות לגבי הנתונים, ההשערות והביצועים</li>
+            <li data-i18n="dsec6_2">רפלקציה אישית - מה למדתי, אתגרים, נושאים מעניינים והעמקה עצמית</li>
+            <li data-i18n="dsec6_3">יש להקפיד על כותרות בתאי טקסט בכל הסעיפים הרלוונטיים</li>
+            <li data-i18n="dsec6_4">יש לתעד את כל הקודים עם הערות</li>
+            <li data-i18n="dsec6_5">יש להגיש קובץ Colab מסודר עם הסברים ותשובות מילוליות</li>
+            <li data-i18n="dsec6_6">חובה לוודא שהכל קריא ושהשילוב של עברית ואנגלית תקין</li>
+            <li data-i18n="dsec6_7">מספר דוגמאות: 500 ויותר, לפחות 2 משתנים רציפים ו-2 בדידים</li>
+            <li data-i18n="dsec6_8">במקרה של סיווג: לפחות שתי מחלקות ופיזור יחסית אחיד בין קבוצות</li>
           </ul>
         </div>
       </div>
@@ -542,17 +529,17 @@ const translations = {
     hero_subtitle: "אתר הקורס ללמידת מכונה. כאן ניתן למצוא מצגות לפי נושאים, הנחיות לפרויקט ומאגרי נתונים מומלצים לפרויקטים.",
     hero_btn_slides: "מצגות הקורס", hero_btn_guidelines: "הנחיות לפרויקט", hero_btn_details: "הסבר מפורט",
     guidelines_title: "הנחיות לפרויקט",
-    g1_title: "שער", g1_text: "שם תלמיד, שם הפרויקט, שנת לימודים ושם המורה.",
-    g2_title: "תיאור הנתונים", g2_text: "הצגת מאגר הנתונים, מקור הנתונים והעמודות המרכזיות.",
-    g3_title: "חקר נתונים", g3_text: "ניתוח נתונים באמצעות גרפים, describe, info ו-groupby.",
-    g4_title: "למידת מכונה", g4_text: "חלוקה ל-Train/Test והרצת לפחות שני מודלים.",
+    g1_title: "שער ונושא המחקר", g1_text: "שם תלמיד/ה + ת״ז, שם המחקר, שנת לימודים, שם המורה, הקדמה קצרה ותמונה הקשורה למאגר או לפרויקט.",
+    g2_title: "תיאור הנתונים", g2_text: "תיאור קצר של מאגר הנתונים, מקור הנתונים, קישור למאגר, סוגי הנתונים במאגר והעמודות שיכולות לשמש כתכונות וכמטרה.",
+    g3_title: "חקר נתונים", g3_text: "טעינת נתונים, info, describe, לפחות 2 פקודות groupby, לפחות 5 גרפים שונים והצגת קורלציה עם heatmap.",
+    g4_title: "עיבוד ולמידת מכונה", g4_text: "ניקוי נתונים, איזון תגיות, נרמול, הנדסת מאפיינים, חלוקה ל-Train/Test, אימון לפחות שני אלגוריתמים ובחינת ביצועים.",
     details_title: "הסבר מפורט על הפרויקט",
-    dsec1_title:"שער ונושא המחקר", dsec1_1:"שם תלמיד/ה + ת״ז", dsec1_2:"שם המחקר", dsec1_3:"שנת לימודים ושם המורה", dsec1_4:"הקדמה קצרה על מטרת המחקר", dsec1_5:"תמונה הקשורה למאגר או לפרויקט",
-    dsec2_title:"תיאור הנתונים", dsec2_1:"תיאור קצר של מאגר הנתונים", dsec2_2:"מקור הנתונים, גרסאות ותאריך עדכון", dsec2_3:"קישור למאגר הנתונים", dsec2_4:"מספר שורות, עמודות וסוגי משתנים", dsec2_5:"הגדרת תכונות ומטרת הסיווג",
-    dsec3_title:"חקר נתונים", dsec3_1:"טעינת הנתונים והצגה ראשונית", dsec3_2:"שימוש ב-info ו-describe", dsec3_3:"לפחות 2 פקודות groupby", dsec3_4:"לפחות 5 גרפים שונים", dsec3_5:"Heatmap לקורלציה",
-    dsec4_title:"עיבוד וטיוב נתונים", dsec4_1:"טיפול בערכים חסרים", dsec4_2:"זיהוי כפילויות וחריגים", dsec4_3:"איזון תגיות במידת הצורך", dsec4_4:"נרמול והנדסת מאפיינים", dsec4_5:"המרת משתנים קטגוריאליים למספריים",
-    dsec5_title:"למידת מכונה וביצועים", dsec5_1:"בחירת עמודות לקלט", dsec5_2:"חלוקה ל-Train ו-Test", dsec5_3:"לפחות שני אלגוריתמים", dsec5_4:"Accuracy, Precision, Recall, F1", dsec5_5:"מטריצת בלבול וניתוח מסקנות",
-    dsec6_title:"סיכום וכללי הגשה", dsec6_1:"סיכום ומסקנות", dsec6_2:"רפלקציה אישית", dsec6_3:"תיעוד מסודר של הקוד", dsec6_4:"שמירה על קריאות והגשה מסודרת", dsec6_5:"עמידה בדרישות המאגר והסיווג",
+    dsec1_title:"שער ונושא המחקר", dsec1_1:"שם תלמיד/ה + ת״ז", dsec1_2:"שם המחקר", dsec1_3:"שנת לימודים", dsec1_4:"שם המורה", dsec1_5:"הקדמה - תיאור קצר של מטרת המחקר ושל מה הסיווג", dsec1_6:"תמונה הקשורה למאגר הנתונים או לפרויקט",
+    dsec2_title:"תיאור הנתונים", dsec2_1:"תיאור קצר של מאגר הנתונים", dsec2_2:"מקור הנתונים: מאיפה נלקח, מי הכין, טווח זמנים, גרסאות ותאריך עדכון אחרון", dsec2_3:"קישור למאגר הנתונים", dsec2_4:"כמה רשומות, כמה עמודות, אילו סוגי נתונים ומה משמעות כל עמודה", dsec2_5:"אילו עמודות יכולות לשמש כתכונות לסיווג וכמטרה",
+    dsec3_title:"חקר נתונים", dsec3_1:"טעינת נתונים והצגה של נתונים מהמאגר", dsec3_2:"הצגת info על המאגר: סוגים, רשומות מלאות, כמות מכל סיווג ונתונים חסרים", dsec3_3:"שימוש ב-describe: ממוצעים, סטיות תקן, מינימום, חציונים ומקסימום", dsec3_4:"לפחות 2 פקודות groupby ולרשום מסקנה לכל פקודה", dsec3_5:"לפחות 5 סוגי גרפים שונים, כותרות, הסברים, מסקנות והשערות מכל גרף", dsec3_6:"הצגת קורלציה עם heatmap בין המאפיינים לשאלת המחקר",
+    dsec4_title:"עיבוד נתונים וטיוב", dsec4_1:"זיהוי ערכים חסרים - השלמה או הסרה בהתאם", dsec4_2:"זיהוי חריגים וטיפול (רשות)", dsec4_3:"זיהוי כפילויות וטיפול", dsec4_4:"איזון תגיות במקרי קיצון", dsec4_5:"נרמול הנתונים", dsec4_6:"הנדסת מאפיינים - הוספת והורדת משתנים", dsec4_7:"הפיכת משתנים קטגוריאליים למספריים, כולל One Hot Encoding",
+    dsec5_title:"למידת מכונה וביצועים", dsec5_1:"בחירת עמודות לקלט והסבר מדוע נבחרו או הוסרו", dsec5_2:"חלוקת הנתונים לקבוצת אימון וקבוצת בדיקה", dsec5_3:"אימון וחיזוי באמצעות לפחות שני אלגוריתמים שלמדנו", dsec5_4:"מטריצת בלבול, Accuracy, Precision, Recall, F1 וממוצעים", dsec5_5:"ניתוח ומסקנות", dsec5_6:"חקר השפעת שינוי היפר-פרמטרים על הביצועים ב-KNN וב-SVC", dsec5_7:"הצגת השינויים במדד ביצוע כללי כמו Accuracy או F1",
+    dsec6_title:"סיכום, כללי הגשה וקריטריונים", dsec6_1:"סיכום ומסקנות לגבי הנתונים, ההשערות והביצועים", dsec6_2:"רפלקציה אישית - מה למדתי, אתגרים, נושאים מעניינים והעמקה עצמית", dsec6_3:"יש להקפיד על כותרות בתאי טקסט בכל הסעיפים הרלוונטיים", dsec6_4:"יש לתעד את כל הקודים עם הערות", dsec6_5:"יש להגיש קובץ Colab מסודר עם הסברים ותשובות מילוליות", dsec6_6:"חובה לוודא שהכל קריא ושהשילוב של עברית ואנגלית תקין", dsec6_7:"מספר דוגמאות: 500 ויותר, לפחות 2 משתנים רציפים ו-2 בדידים", dsec6_8:"במקרה של סיווג: לפחות שתי מחלקות ופיזור יחסית אחיד בין קבוצות",
     slides_title: "מצגות לפי נושאים", search_placeholder: "חפש מצגת...",
     s1_title: "Python for DS", s1_text: "מבוא לעבודה עם Python במדעי הנתונים.",
     s2_title: "Visualization", s2_text: "גרפים והצגת נתונים.",
@@ -575,17 +562,17 @@ const translations = {
     hero_subtitle: "The course website for machine learning. Here you can find slides by topic, project guidelines, and recommended datasets for projects.",
     hero_btn_slides: "Course Slides", hero_btn_guidelines: "Project Guidelines", hero_btn_details: "Detailed Guide",
     guidelines_title: "Project Guidelines",
-    g1_title: "Cover Page", g1_text: "Student name, project title, school year, and teacher name.",
-    g2_title: "Data Description", g2_text: "Present the dataset, its source, and the main columns.",
-    g3_title: "Data Exploration", g3_text: "Analyze the data using graphs, describe, info, and groupby.",
-    g4_title: "Machine Learning", g4_text: "Split into Train/Test and run at least two models.",
+    g1_title: "Cover and Research Topic", g1_text: "Student name + ID, research title, school year, teacher name, a short introduction, and an image related to the dataset or project.",
+    g2_title: "Data Description", g2_text: "Short description of the dataset, source, link, data types, and which columns can be used as features and target.",
+    g3_title: "Data Exploration", g3_text: "Load data, use info and describe, include at least 2 groupby commands, at least 5 different charts, and a heatmap for correlation.",
+    g4_title: "Processing and Machine Learning", g4_text: "Data cleaning, label balancing, normalization, feature engineering, Train/Test split, training at least two algorithms, and performance evaluation.",
     details_title: "Detailed Project Guide",
-    dsec1_title:"Cover and Research Topic", dsec1_1:"Student name + ID", dsec1_2:"Research title", dsec1_3:"School year and teacher name", dsec1_4:"Short introduction about the research goal", dsec1_5:"An image related to the dataset or project",
-    dsec2_title:"Data Description", dsec2_1:"Short description of the dataset", dsec2_2:"Data source, versions, and last update", dsec2_3:"Link to the dataset", dsec2_4:"Rows, columns, and variable types", dsec2_5:"Definition of features and target",
-    dsec3_title:"Data Exploration", dsec3_1:"Load and present the data", dsec3_2:"Use info and describe", dsec3_3:"At least 2 groupby commands", dsec3_4:"At least 5 different charts", dsec3_5:"Heatmap for correlation",
-    dsec4_title:"Data Processing", dsec4_1:"Handle missing values", dsec4_2:"Find duplicates and outliers", dsec4_3:"Balance labels if needed", dsec4_4:"Normalization and feature engineering", dsec4_5:"Convert categorical variables to numeric",
-    dsec5_title:"Machine Learning and Performance", dsec5_1:"Select input columns", dsec5_2:"Split into Train and Test", dsec5_3:"Use at least two algorithms", dsec5_4:"Accuracy, Precision, Recall, F1", dsec5_5:"Confusion matrix and conclusions",
-    dsec6_title:"Summary and Submission", dsec6_1:"Summary and conclusions", dsec6_2:"Personal reflection", dsec6_3:"Well-documented code", dsec6_4:"Readable and organized submission", dsec6_5:"Meet dataset and classification requirements",
+    dsec1_title:"Cover and Research Topic", dsec1_1:"Student name + ID", dsec1_2:"Research title", dsec1_3:"School year", dsec1_4:"Teacher name", dsec1_5:"Short introduction about the research goal and classification target", dsec1_6:"An image related to the dataset or project",
+    dsec2_title:"Data Description", dsec2_1:"Short description of the dataset", dsec2_2:"Data source: where it came from, who prepared it, time range, versions, and last update", dsec2_3:"Link to the dataset", dsec2_4:"How many rows, columns, data types, and the meaning of each column", dsec2_5:"Which columns can be used as features and target",
+    dsec3_title:"Data Exploration", dsec3_1:"Load and display data from the dataset", dsec3_2:"Present info: categories, complete rows, class counts, and missing values", dsec3_3:"Use describe: averages, standard deviations, minimums, medians, and maximums", dsec3_4:"At least 2 groupby commands with a conclusion for each", dsec3_5:"At least 5 different chart types with titles, explanations, conclusions, and insights", dsec3_6:"Show correlation with a heatmap between features and the research question",
+    dsec4_title:"Data Processing and Cleaning", dsec4_1:"Identify missing values and complete or remove them", dsec4_2:"Identify outliers and handle them if needed", dsec4_3:"Identify duplicates and handle them", dsec4_4:"Balance labels in extreme cases", dsec4_5:"Normalize the data", dsec4_6:"Feature engineering - add and remove variables", dsec4_7:"Convert categorical variables to numeric, including One Hot Encoding",
+    dsec5_title:"Machine Learning and Performance", dsec5_1:"Select input columns and explain why they were chosen or removed", dsec5_2:"Split the data into training and testing sets", dsec5_3:"Train and predict using at least two algorithms learned in class", dsec5_4:"Confusion matrix, Accuracy, Precision, Recall, F1, and averages", dsec5_5:"Analysis and conclusions", dsec5_6:"Investigate the effect of hyperparameter changes in KNN and SVC", dsec5_7:"Present the changes in a general performance metric such as Accuracy or F1",
+    dsec6_title:"Summary, Submission Rules, and Criteria", dsec6_1:"Summary and conclusions about the data, hypotheses, and performance", dsec6_2:"Personal reflection - what I learned, challenges, interesting topics, and self-learning", dsec6_3:"Use titles in text boxes in all relevant sections", dsec6_4:"Document all code with comments", dsec6_5:"Submit an organized Colab file with explanations and written answers", dsec6_6:"Make sure everything is readable and that Hebrew/English mixing is displayed correctly", dsec6_7:"At least 500 samples, at least 2 continuous and 2 discrete variables", dsec6_8:"For classification: at least two classes and a relatively balanced class distribution",
     slides_title: "Slides by Topic", search_placeholder: "Search slides...",
     s1_title: "Python for DS", s1_text: "Introduction to Python for data science.",
     s2_title: "Visualization", s2_text: "Charts and data presentation.",
