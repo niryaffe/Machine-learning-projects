@@ -97,13 +97,12 @@
 
     .hero{
       display:grid;
-      grid-template-columns:1.2fr .8fr;
+      grid-template-columns:1fr;
       gap:24px;
       align-items:stretch;
     }
 
     .hero-main,
-    .hero-side,
     .section-box{
       background:linear-gradient(180deg, rgba(21,27,38,.92), rgba(15,20,28,.96));
       border:1px solid var(--line);
@@ -115,6 +114,7 @@
       padding:42px 34px;
       position:relative;
       overflow:hidden;
+      text-align:center;
     }
 
     .hero-main::after{
@@ -140,27 +140,36 @@
       letter-spacing:1.2px;
       margin-bottom:18px;
       background:rgba(125,184,255,.05);
+      position:relative;
+      z-index:1;
     }
 
     h1{
       margin:0;
       font-size:clamp(42px, 8vw, 78px);
       line-height:1.02;
+      position:relative;
+      z-index:1;
     }
 
     .subtitle{
-      margin:18px 0 0;
+      margin:18px auto 0;
       color:var(--muted);
       font-size:20px;
       line-height:1.85;
       max-width:760px;
+      position:relative;
+      z-index:1;
     }
 
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
+      justify-content:center;
       gap:14px;
       margin-top:28px;
+      position:relative;
+      z-index:1;
     }
 
     .btn{
@@ -192,51 +201,6 @@
     .btn-secondary:hover{
       border-color:var(--accent);
       transform:translateY(-1px);
-    }
-
-    .hero-side{
-      padding:28px 24px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:18px;
-    }
-
-    .hero-side h3{
-      margin:0 0 10px;
-      font-size:24px;
-    }
-
-    .hero-side p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.8;
-      font-size:16px;
-    }
-
-    .mini-stats{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-
-    .stat{
-      border:1px solid var(--line-soft);
-      border-radius:16px;
-      padding:18px 16px;
-      background:rgba(255,255,255,.02);
-    }
-
-    .stat strong{
-      display:block;
-      font-size:28px;
-      margin-bottom:6px;
-      color:var(--accent);
-    }
-
-    .stat span{
-      color:var(--muted);
-      font-size:14px;
     }
 
     section{
@@ -322,6 +286,56 @@
       color:#fff;
     }
 
+    .slides-toolbar{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+      padding:16px;
+      border:1px solid var(--line-soft);
+      border-radius:16px;
+      background:rgba(255,255,255,.02);
+    }
+
+    .search-wrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex:1 1 320px;
+      min-width:260px;
+      background:#101722;
+      border:1px solid var(--line-soft);
+      border-radius:12px;
+      padding:10px 12px;
+    }
+
+    .search-wrap span{
+      font-size:18px;
+      opacity:.9;
+    }
+
+    .search-wrap input{
+      width:100%;
+      background:transparent;
+      border:none;
+      outline:none;
+      color:var(--text);
+      font-size:16px;
+      font-family:inherit;
+    }
+
+    .search-wrap input::placeholder{
+      color:#8fa1ba;
+    }
+
+    .slides-count{
+      color:var(--muted);
+      font-size:14px;
+      white-space:nowrap;
+    }
+
     .slides-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
@@ -336,11 +350,30 @@
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      min-height:170px;
+      min-height:190px;
+    }
+
+    .slide-head{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .slide-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:rgba(125,184,255,.10);
+      border:1px solid rgba(125,184,255,.20);
+      font-size:20px;
+      flex:0 0 42px;
     }
 
     .slide-card h4{
-      margin:0 0 12px;
+      margin:0 0 8px;
       font-size:21px;
       color:#fff;
     }
@@ -451,11 +484,8 @@
     }
 
     @media (max-width: 900px){
-      .hero, .two-col{
+      .two-col{
         grid-template-columns:1fr;
-      }
-      .mini-stats{
-        grid-template-columns:1fr 1fr;
       }
     }
 
@@ -473,8 +503,8 @@
       .subtitle{
         font-size:18px;
       }
-      .mini-stats{
-        grid-template-columns:1fr;
+      .slides-toolbar{
+        align-items:stretch;
       }
     }
   </style>
@@ -507,34 +537,6 @@
         <a class="btn btn-secondary" href="#guidelines">להנחיות לפרויקט</a>
       </div>
     </div>
-
-    <aside class="hero-side">
-      <div>
-        <h3>סביבת לימוד מסודרת</h3>
-        <p>
-          האתר מרכז את החומרים החשובים במקום אחד: הנחיות הגשה, מצגות מסודרות לפי נושאים,
-          קישורים למאגרי נתונים ועמוד ייעודי לפרויקט הגמר.
-        </p>
-      </div>
-      <div class="mini-stats">
-        <div class="stat">
-          <strong>10+</strong>
-          <span>מצגות פתוחות לצפייה</span>
-        </div>
-        <div class="stat">
-          <strong>3</strong>
-          <span>מקורות מומלצים לנתונים</span>
-        </div>
-        <div class="stat">
-          <strong>1</strong>
-          <span>מרכז קורס אחד מסודר</span>
-        </div>
-        <div class="stat">
-          <strong>ML</strong>
-          <span>גישה אקדמית-מעשית</span>
-        </div>
-      </div>
-    </aside>
   </div>
 </header>
 
@@ -626,76 +628,170 @@
         ברורה ומקצועית יותר.
       </p>
 
+      <div class="slides-toolbar">
+        <div class="search-wrap">
+          <span>🔎</span>
+          <input id="slidesSearch" type="text" placeholder="חפש מצגת לפי שם או נושא..." />
+        </div>
+        <div class="slides-count">סנן במהירות את המצגות לפי נושא</div>
+      </div>
+
       <div class="slides-groups">
         <div class="group-box">
-          <h3>מבוא ועבודה עם נתונים</h3>
+          <h3>📘 מבוא ועבודה עם נתונים</h3>
           <div class="slides-grid">
-            <div class="slide-card">
-              <h4>Python for DS</h4>
-              <p>מבוא לעבודה עם Python בעולם מדעי הנתונים.</p>
+            <div class="slide-card" data-search="python data science מבוא נתונים">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">🐍</div>
+                  <div>
+                    <h4>Python for DS</h4>
+                    <span class="tag">מבוא</span>
+                  </div>
+                </div>
+                <p>מבוא לעבודה עם Python בעולם מדעי הנתונים.</p>
+              </div>
               <a class="slide-open" href="2.1 Python for DS.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
-            <div class="slide-card">
-              <h4>Visualization</h4>
-              <p>יסודות ויזואליזציה וקריאת נתונים בצורה נכונה.</p>
+
+            <div class="slide-card" data-search="visualization גרפים ויזואליזציה">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">📊</div>
+                  <div>
+                    <h4>Visualization</h4>
+                    <span class="tag">גרפים</span>
+                  </div>
+                </div>
+                <p>יסודות ויזואליזציה וקריאת נתונים בצורה נכונה.</p>
+              </div>
               <a class="slide-open" href="3.1 Visualization.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
-            <div class="slide-card">
-              <h4>Data Preparation</h4>
-              <p>הכנת נתונים, ארגון וניקוי לפני אימון מודלים.</p>
+
+            <div class="slide-card" data-search="data preparation הכנת נתונים ניקוי">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">🧹</div>
+                  <div>
+                    <h4>Data Preparation</h4>
+                    <span class="tag">ניקוי נתונים</span>
+                  </div>
+                </div>
+                <p>הכנת נתונים, ארגון וניקוי לפני אימון מודלים.</p>
+              </div>
               <a class="slide-open" href="Data preparation.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
           </div>
         </div>
 
         <div class="group-box">
-          <h3>רגרסיה והנדסת מאפיינים</h3>
+          <h3>🧠 רגרסיה והנדסת מאפיינים</h3>
           <div class="slides-grid">
-            <div class="slide-card">
-              <h4>Feature Engineering</h4>
-              <p>שיפור המידע הקלט באמצעות יצירה והתאמה של תכונות.</p>
+            <div class="slide-card" data-search="feature engineering תכונות הנדסת מאפיינים">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">⚙️</div>
+                  <div>
+                    <h4>Feature Engineering</h4>
+                    <span class="tag">מאפיינים</span>
+                  </div>
+                </div>
+                <p>שיפור המידע הקלט באמצעות יצירה והתאמה של תכונות.</p>
+              </div>
               <a class="slide-open" href="14.1 Feature engineering.pdf" target="_blank">פתח מצגת</a>
             </div>
-            <div class="slide-card">
-              <h4>Linear Regression</h4>
-              <p>מודל רגרסיה לינארית והיכרות עם פתרון מבוסס sklearn.</p>
+
+            <div class="slide-card" data-search="linear regression רגרסיה לינארית sklearn">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">📈</div>
+                  <div>
+                    <h4>Linear Regression</h4>
+                    <span class="tag">רגרסיה</span>
+                  </div>
+                </div>
+                <p>מודל רגרסיה לינארית והיכרות עם פתרון מבוסס sklearn.</p>
+              </div>
               <a class="slide-open" href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
           </div>
         </div>
 
         <div class="group-box">
-          <h3>KNN ויישום מעשי</h3>
+          <h3>🤖 KNN ויישום מעשי</h3>
           <div class="slides-grid">
-            <div class="slide-card">
-              <h4>KNN</h4>
-              <p>היכרות עם רעיון השכנים הקרובים.</p>
+            <div class="slide-card" data-search="knn שכנים קרובים">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">🧭</div>
+                  <div>
+                    <h4>KNN</h4>
+                    <span class="tag">KNN</span>
+                  </div>
+                </div>
+                <p>היכרות עם רעיון השכנים הקרובים.</p>
+              </div>
               <a class="slide-open" href="5.1 KNN.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
-            <div class="slide-card">
-              <h4>KNN with Sklearn</h4>
-              <p>יישום KNN עם ספריית sklearn.</p>
+
+            <div class="slide-card" data-search="knn sklearn ספריה">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">🛠️</div>
+                  <div>
+                    <h4>KNN with Sklearn</h4>
+                    <span class="tag">ספריות</span>
+                  </div>
+                </div>
+                <p>יישום KNN עם ספריית sklearn.</p>
+              </div>
               <a class="slide-open" href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
-            <div class="slide-card">
-              <h4>KNN Implementation</h4>
-              <p>מימוש מעשי של KNN והבנת תהליך העבודה.</p>
+
+            <div class="slide-card" data-search="knn implementation מימוש">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">💻</div>
+                  <div>
+                    <h4>KNN Implementation</h4>
+                    <span class="tag">מימוש</span>
+                  </div>
+                </div>
+                <p>מימוש מעשי של KNN והבנת תהליך העבודה.</p>
+              </div>
               <a class="slide-open" href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
           </div>
         </div>
 
         <div class="group-box">
-          <h3>מסווגים והערכת ביצועים</h3>
+          <h3>🧪 מסווגים והערכת ביצועים</h3>
           <div class="slides-grid">
-            <div class="slide-card">
-              <h4>Perceptron & SVM</h4>
-              <p>היכרות עם מסווגים לינאריים וגבולות החלטה.</p>
+            <div class="slide-card" data-search="perceptron svm מסווגים">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">🎯</div>
+                  <div>
+                    <h4>Perceptron & SVM</h4>
+                    <span class="tag">מסווגים</span>
+                  </div>
+                </div>
+                <p>היכרות עם מסווגים לינאריים וגבולות החלטה.</p>
+              </div>
               <a class="slide-open" href="Percepton and SVM.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
-            <div class="slide-card">
-              <h4>Performance Indicators</h4>
-              <p>מדדי ביצוע, Accuracy, Precision, Recall ועוד.</p>
+
+            <div class="slide-card" data-search="performance indicators accuracy precision recall">
+              <div>
+                <div class="slide-head">
+                  <div class="slide-icon">📐</div>
+                  <div>
+                    <h4>Performance Indicators</h4>
+                    <span class="tag">מדדים</span>
+                  </div>
+                </div>
+                <p>מדדי ביצוע, Accuracy, Precision, Recall ועוד.</p>
+              </div>
               <a class="slide-open" href="Performance Indicators updated.pptx.pdf" target="_blank">פתח מצגת</a>
             </div>
           </div>
@@ -716,17 +812,17 @@
 
       <div class="links-grid">
         <a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank">
-          <strong>Kaggle</strong>
+          <strong>📦 Kaggle</strong>
           <span>מאגר datasets עשיר מאוד עם תחרויות, מחברות וקהילת משתמשים פעילה.</span>
         </a>
 
         <a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank">
-          <strong>Google Dataset Search</strong>
+          <strong>🔍 Google Dataset Search</strong>
           <span>מנוע חיפוש ייעודי למציאת datasets ממקורות אקדמיים וציבוריים.</span>
         </a>
 
         <a class="resource-link" href="https://data.gov/" target="_blank">
-          <strong>Data.gov</strong>
+          <strong>🏛️ Data.gov</strong>
           <span>מקור פתוח למאגרי מידע של הממשל שיכולים לשמש למחקר ופרויקטים.</span>
         </a>
       </div>
@@ -745,19 +841,19 @@
 
       <div class="future-grid">
         <div class="future-item">
-          <h4>פרויקט תלמידים</h4>
+          <h4>🧑‍🎓 פרויקט תלמידים</h4>
           <p>אזור להצגת עבודות נבחרות, ניתוחים, גרפים ומסקנות.</p>
         </div>
         <div class="future-item">
-          <h4>Model Results</h4>
+          <h4>📉 Model Results</h4>
           <p>הצגת Accuracy, Confusion Matrix ותוצאות השוואת מודלים.</p>
         </div>
         <div class="future-item">
-          <h4>Code Examples</h4>
+          <h4>⌨️ Code Examples</h4>
           <p>קישורים לדוגמאות קוד, מחברות Google Colab ותהליכי עבודה.</p>
         </div>
         <div class="future-item">
-          <h4>Dataset Library</h4>
+          <h4>🗂️ Dataset Library</h4>
           <p>אוסף מאגרים מומלצים לפרויקטים חדשים בהמשך השנה.</p>
         </div>
       </div>
@@ -774,6 +870,19 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const searchInput = document.getElementById('slidesSearch');
+  const slideCards = document.querySelectorAll('.slide-card');
+
+  searchInput.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    slideCards.forEach(card => {
+      const text = (card.dataset.search + ' ' + card.innerText).toLowerCase();
+      card.style.display = text.includes(q) ? 'flex' : 'none';
+    });
+  });
+</script>
 
 </body>
 </html>
