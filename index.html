@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Machine Learning Lab</title>
+  <style>
+    :root{
+      --panel:rgba(7,16,7,0.84);
+      --line:rgba(145,255,0,0.22);
+      --line-strong:rgba(170,255,65,0.42);
+      --text:#e0ff93;
+      --muted:#c6e79f;
+      --accent:#a8ff18;
+      --shadow:0 0 24px rgba(120,255,0,0.16), 0 0 60px rgba(65,255,0,0.08);
+      --soft-shadow:0 0 18px rgba(120,255,0,0.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(120,255,0,0.13), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(120,255,0,0.07), transparent 18%),
+        linear-gradient(180deg, #050805 0%, #010201 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(120,255,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120,255,0,0.05) 1px, transparent 1px);
+      background-size:44px 44px;
+      opacity:.22;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      z-index:0;
+    }
+    .glow-orb{
+      position:fixed;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      filter:blur(95px);
+      opacity:.12;
+      pointer-events:none;
+      z-index:0;
+      animation:floatOrb 14s ease-in-out infinite alternate;
+    }
+    .orb1{background:#8fff00; top:-90px; left:-90px;}
+    .orb2{background:#38ff00; bottom:-120px; right:-110px; animation-duration:18s;}
+    @keyframes floatOrb{
+      from{transform:translateY(-10px) translateX(0)}
+      to{transform:translateY(28px) translateX(20px)}
+    }
+    .container{
+      width:min(1220px, calc(100% - 28px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+    nav{
+      position:sticky;
+      top:0;
+      z-index:60;
+      background:rgba(0,0,0,0.76);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(140,255,0,0.12);
+    }
+    .nav-inner{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+      padding:16px 0;
+    }
+    nav a{
+      color:var(--text);
+      text-decoration:none;
+      padding:12px 22px;
+      border-radius:999px;
+      border:1px solid rgba(160,255,30,0.22);
+      background:rgba(20,38,12,0.42);
+      box-shadow:0 0 14px rgba(120,255,0,0.06) inset;
+      transition:.25s ease;
+      font-weight:700;
+    }
+    nav a:hover{
+      transform:translateY(-2px);
+      background:var(--accent);
+      color:#051005;
+      box-shadow:0 0 22px rgba(168,255,24,0.46);
+    }
+    header{
+      min-height:78vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:34px 0 20px;
+    }
+    .hero{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:34px;
+      padding:52px 24px 42px;
+      background:
+        linear-gradient(180deg, rgba(5,12,5,0.95), rgba(2,5,2,0.94)),
+        radial-gradient(circle at top, rgba(120,255,0,0.08), transparent 36%);
+      box-shadow:
+        0 0 0 1px rgba(120,255,0,0.03) inset,
+        0 0 38px rgba(120,255,0,0.08),
+        0 0 78px rgba(120,255,0,0.05) inset;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto -18% -42% -18%;
+      height:220px;
+      background:radial-gradient(circle, rgba(125,255,0,0.18), transparent 55%);
+      filter:blur(42px);
+      pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(155,255,0,0.28);
+      color:#d4ff8f;
+      letter-spacing:2px;
+      font-size:13px;
+      margin-bottom:18px;
+      box-shadow:0 0 18px rgba(120,255,0,0.08);
+    }
+    h1{
+      margin:0;
+      font-size:clamp(52px, 9vw, 110px);
+      line-height:1.02;
+      text-shadow:0 0 18px rgba(170,255,60,0.34), 0 0 50px rgba(100,255,0,0.12);
+    }
+    .subtitle{
+      max-width:860px;
+      margin:22px auto 0;
+      font-size:clamp(18px, 2.4vw, 28px);
+      color:var(--muted);
+      line-height:1.8;
+    }
+    .hero-actions{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:15px 28px;
+      border-radius:999px;
+      font-weight:700;
+      transition:.25s ease;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#081108;
+      box-shadow:0 0 24px rgba(168,255,24,0.40);
+    }
+    .btn-secondary{
+      color:var(--text);
+      border:1px solid rgba(155,255,0,0.24);
+      background:rgba(20,35,10,0.34);
+    }
+    .btn:hover{transform:translateY(-2px) scale(1.02)}
+    section{padding:0 0 30px}
+    .section-box{
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:28px 20px 32px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+    }
+    .section-box.highlight{
+      border-color:var(--line-strong);
+      box-shadow:
+        0 0 0 1px rgba(180,255,80,0.04) inset,
+        0 0 28px rgba(130,255,20,0.18),
+        0 0 60px rgba(90,255,0,0.06);
+      background:linear-gradient(180deg, rgba(12,28,8,0.92), rgba(6,14,5,0.92));
+    }
+    .section-title{
+      margin:0 0 22px;
+      font-size:34px;
+      text-align:center;
+      text-shadow:0 0 16px rgba(170,255,60,0.18);
+    }
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      gap:20px;
+    }
+    .card{
+      position:relative;
+      overflow:hidden;
+      min-height:190px;
+      border-radius:24px;
+      border:1px solid rgba(155,255,0,0.18);
+      background:linear-gradient(180deg, rgba(7,15,7,0.96), rgba(2,6,2,0.96));
+      padding:24px 20px;
+      text-align:right;
+      box-shadow:var(--soft-shadow);
+      transition:.28s ease;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40% auto auto -20%;
+      width:180px;
+      height:180px;
+      background:radial-gradient(circle, rgba(140,255,0,0.16), transparent 65%);
+      filter:blur(10px);
+    }
+    .card:hover{
+      transform:translateY(-5px);
+      border-color:rgba(180,255,70,0.4);
+      box-shadow:0 0 28px rgba(150,255,40,0.14);
+    }
+    .card h3,.card p,.tag{position:relative;z-index:1}
+    .card h3{
+      margin:0 0 12px;
+      font-size:27px;
+      color:#e4ff9b;
+    }
+    .card p{
+      margin:0;
+      color:#d1e9aa;
+      line-height:1.8;
+      font-size:17px;
+    }
+    .tag{
+      display:inline-block;
+      font-size:13px;
+      padding:7px 12px;
+      border-radius:999px;
+      color:#091307;
+      background:var(--accent);
+      font-weight:700;
+      box-shadow:0 0 16px rgba(168,255,24,0.32);
+      margin-bottom:18px;
+    }
+    .guidelines-list{
+      margin:18px 0 24px;
+      padding:0 22px 0 0;
+      line-height:1.9;
+      color:#d7efb0;
+      font-size:17px;
+    }
+    .guidelines-list li{margin-bottom:8px}
+    .two-col{
+      display:grid;
+      grid-template-columns:1.3fr .9fr;
+      gap:20px;
+      align-items:stretch;
+    }
+    .mini-list{
+      list-style:none;
+      margin:16px 0 0;
+      padding:0;
+    }
+    .mini-list li{
+      padding:12px 14px;
+      border:1px solid rgba(155,255,0,0.16);
+      border-radius:16px;
+      margin-bottom:12px;
+      background:rgba(12,22,9,0.55);
+      color:#d4ebae;
+      line-height:1.7;
+    }
+    .links-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+    .resource-link{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      padding:18px;
+      border-radius:20px;
+      border:1px solid rgba(155,255,0,0.18);
+      background:rgba(10,21,9,0.7);
+      transition:.25s ease;
+      box-shadow:var(--soft-shadow);
+      text-align:right;
+    }
+    .resource-link:hover{
+      transform:translateY(-4px);
+      border-color:rgba(180,255,70,0.38);
+      box-shadow:0 0 24px rgba(150,255,40,0.14);
+    }
+    .resource-link strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:20px;
+      color:#e5ff9f;
+    }
+    .resource-link span{
+      color:#c7e19e;
+      line-height:1.7;
+      font-size:15px;
+    }
+    .projects-box .cards{
+      grid-template-columns:1fr;
+      max-width:420px;
+      margin:0 auto;
+    }
+    .projects-box .card{
+      min-height:auto;
+      text-align:center;
+    }
+    .projects-box .card h3{
+      margin:0;
+      font-size:30px;
+    }
+    .tech-center-box{text-align:center}
+    .tech-center-box p{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size:20px;
+    }
+    footer{
+      padding:18px 0 42px;
+      text-align:center;
+      color:#a8ca87;
+      font-size:15px;
+      position:relative;
+      z-index:1;
+    }
+    @media (max-width:900px){
+      .two-col{grid-template-columns:1fr}
+    }
+    @media (max-width:700px){
+      .hero{padding:38px 18px 30px}
+      .section-title{font-size:28px}
+      .card h3{font-size:24px}
+      .subtitle{font-size:18px}
+      .guidelines-list{font-size:16px}
+      .projects-box .card h3{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-orb orb1"></div>
+  <div class="glow-orb orb2"></div>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="#home">בית</a>
+      <a href="#guidelines">הנחיות</a>
+      <a href="#slides">מצגות</a>
+      <a href="#datasets">מאגרי נתונים</a>
+      <a href="#projects">פרויקטים</a>
+      <a href="#tech-center">מרכז טק</a>
+    </div>
+  </nav>
+
+  <header id="home">
+    <div class="container">
+      <div class="hero">
+        <div class="eyebrow">MACHINE LEARNING · LAB</div>
+        <h1>Machine Learning Lab</h1>
+        <p class="subtitle">
+          אתר תלמידים לפרויקטים, מצגות, חומרים והנחיות בתחום למידת מכונה ומדעי הנתונים.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#guidelines">הנחיות לפרויקט</a>
+          <a class="btn btn-secondary" href="#slides">לגלריית המצגות</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="guidelines">
+    <div class="container">
+      <div class="section-box highlight">
+        <h2 class="section-title">הנחיות לפרויקט</h2>
+        <div class="two-col">
+          <div class="card">
+            <span class="tag">Project Instructions</span>
+            <h3>מה צריך להופיע בפרויקט</h3>
+            <ul class="guidelines-list">
+              <li>שער מסודר עם שם התלמיד, שם המחקר, שנת לימודים ושם המורה.</li>
+              <li>הקדמה קצרה, תיאור מטרת המחקר ותמונה הקשורה למאגר הנתונים או לפרויקט.</li>
+              <li>תיאור מאגר הנתונים: מקור, תאריך עדכון, קישור, סוגי עמודות ומטרת הסיווג.</li>
+              <li>חקר נתונים: טעינה, info, describe, לפחות שתי פקודות groupby ולפחות חמישה גרפים שונים.</li>
+              <li>הצגת קורלציה ב-heatmap בין המאפיינים לשאלת המחקר.</li>
+              <li>עיבוד נתונים: ערכים חסרים, כפילויות, איזון תגיות, נרמול, הנדסת מאפיינים והמרת משתנים קטגוריאליים.</li>
+              <li>למידת מכונה: בחירת עמודות, חלוקה ל-train/test ואימון לפחות שני אלגוריתמים.</li>
+              <li>בדיקת ביצועים: מטריצת בלבול, Accuracy, Precision, Recall, F1, ניתוח ומסקנות.</li>
+              <li>בדיקת השפעת היפר-פרמטרים, כולל KNN ומודל SVC.</li>
+              <li>סיכום ורפלקציה אישית על תהליך הלמידה והעבודה.</li>
+            </ul>
+            <a class="btn btn-primary" href="project-guidelines.html">פתיחת ההנחיות</a>
+          </div>
+
+          <div class="card">
+            <span class="tag">Checklist</span>
+            <h3>דגשים חשובים</h3>
+            <ul class="mini-list">
+              <li>יש לתעד את כל הקוד עם הערות ולוודא שההסברים מסודרים לפי הסעיפים.</li>
+              <li>יש להקפיד על כותרות ברורות, שילוב קריא של עברית ואנגלית והגשה מסודרת.</li>
+              <li>מאגר הנתונים צריך לכלול 500 דוגמאות ויותר.</li>
+              <li>נדרשים לפחות 2 משתנים רציפים ולפחות 2 משתנים בדידים.</li>
+              <li>במקרה של סיווג, נדרשות לפחות שתי קטגוריות.</li>
+              <li>אם המאגר לא מאוזן, ניתן לבצע איזון תגיות.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="slides">
+    <div class="container">
+      <div class="section-box">
+        <h2 class="section-title">Slides Gallery</h2>
+        <div class="cards">
+          <article class="card">
+            <span class="tag">Slides 01</span>
+            <h3>Intro to ML</h3>
+            <p>מבוא ללמידת מכונה: נתונים, תכונות, אימון, בדיקה, דיוק ומודל.</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Slides 02</span>
+            <h3>KNN vs SVM</h3>
+            <p>השוואה בין מסווגים נפוצים, כולל יתרונות, מגבלות ודוגמאות תוצאות.</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Slides 03</span>
+            <h3>Image Models</h3>
+            <p>עבודה עם תמונות, הכנת דאטה, חלוקה ל-Train/Test והערכת מודלים.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="datasets">
+    <div class="container">
+      <div class="section-box">
+        <h2 class="section-title">Datasets for Projects</h2>
+        <div class="links-grid">
+          <a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank" rel="noopener noreferrer">
+            <strong>Kaggle</strong>
+            <span>מאגר גדול של datasets לפרויקטים במדעי הנתונים ולמידת מכונה.</span>
+          </a>
+          <a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank" rel="noopener noreferrer">
+            <strong>Google Dataset Search</strong>
+            <span>מנוע חיפוש ייעודי למציאת מאגרי נתונים ממקורות שונים.</span>
+          </a>
+          <a class="resource-link" href="https://data.gov/" target="_blank" rel="noopener noreferrer">
+            <strong>Data.gov</strong>
+            <span>מקור למאגרי נתונים ציבוריים שיכולים לשמש לעבודות חקר.</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech-center">
+    <div class="container">
+      <div class="section-box tech-center-box">
+        <h2 class="section-title">מרכז טק</h2>
+        <p>לקישור לאתר הרשמי של מרכז טק:</p>
+        <a class="btn btn-primary" href="https://www.tech-center.org/" target="_blank" rel="noopener noreferrer">כניסה לאתר מרכז טק</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-box projects-box">
+        <h2 class="section-title">Project Area</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>New Projects</h3>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Machine Learning Lab
+  </footer>
+</body>
+</html>

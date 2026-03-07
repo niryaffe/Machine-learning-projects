@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הנחיות לפרויקט</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#050805;
+      color:#e0ff93;
+      line-height:1.8;
+    }
+    .container{
+      width:min(1000px, calc(100% - 28px));
+      margin:0 auto;
+      padding:30px 0 50px;
+    }
+    .box{
+      border:1px solid rgba(170,255,65,0.35);
+      border-radius:24px;
+      padding:28px 22px;
+      background:rgba(10,22,10,0.9);
+      box-shadow:0 0 30px rgba(120,255,0,0.12);
+      margin-bottom:24px;
+    }
+    h1,h2{
+      text-align:center;
+      color:#e6ffa1;
+      text-shadow:0 0 16px rgba(170,255,60,0.18);
+    }
+    ul{padding-right:22px}
+    li{margin-bottom:8px}
+    .top-link{
+      display:inline-block;
+      margin-bottom:20px;
+      color:#081108;
+      background:#a8ff18;
+      text-decoration:none;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="top-link" href="index.html">חזרה לאתר</a>
+
+    <div class="box">
+      <h1>הנחיות לפרויקט במדעי הנתונים ולמידת מכונה</h1>
+    </div>
+
+    <div class="box">
+      <h2>שער ונושא המחקר</h2>
+      <ul>
+        <li>שם תלמיד/ה + ת״ז</li>
+        <li>שם המחקר</li>
+        <li>שנת לימודים</li>
+        <li>שם המורה</li>
+        <li>הקדמה קצרה: תיאור מטרת המחקר ושל מה הסיווג</li>
+        <li>תמונה הקשורה למאגר הנתונים או לפרויקט</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>תיאור הנתונים</h2>
+      <ul>
+        <li>תיאור קצר של מאגר הנתונים</li>
+        <li>מקור הנתונים: מי הכין, מאיפה נלקח, טווח זמנים, גרסאות ותאריך עדכון אחרון</li>
+        <li>קישור למאגר הנתונים</li>
+        <li>פירוט מספר הרשומות, מספר העמודות, סוגי העמודות ומשמעות כל עמודה</li>
+        <li>אילו עמודות ישמשו כתכונות לסיווג ואילו כמטרת הסיווג</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>חקר נתונים</h2>
+      <ul>
+        <li>טעינת נתונים והצגה של נתונים מהמאגר</li>
+        <li>שימוש ב-info להצגת מבנה המאגר, קטגוריות, ערכים חסרים ועוד</li>
+        <li>שימוש ב-describe להצגת ממוצעים, סטיות תקן, מינימום, חציון ומקסימום</li>
+        <li>לפחות שתי פקודות groupby עם מסקנה לכל פקודה</li>
+        <li>לפחות חמישה גרפים שונים באמצעות seaborn / matplotlib</li>
+        <li>כותרות מתאימות, הסבר אילו משתנים מופיעים בכל גרף, והאם הם בדידים או רציפים</li>
+        <li>הסברים, מסקנות והשערות מכל גרף</li>
+        <li>הצגת קורלציה ויזואלית עם heatmap</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>עיבוד וטיוב נתונים</h2>
+      <ul>
+        <li>זיהוי ערכים חסרים והשלמה או הסרה בהתאם</li>
+        <li>זיהוי חריגים וטיפול, אם נדרש</li>
+        <li>זיהוי כפילויות וטיפול</li>
+        <li>איזון תגיות במקרי קיצון</li>
+        <li>נרמול נתונים</li>
+        <li>הנדסת מאפיינים: הוספה והסרה של משתנים</li>
+        <li>המרת משתנים קטגוריאליים למספריים, כולל One Hot Encoding</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>למידת מכונה ובדיקת ביצועים</h2>
+      <ul>
+        <li>בחירת עמודות לקלט והסבר מדוע נבחרו</li>
+        <li>חלוקה ל-Train ו-Test</li>
+        <li>אימון וחיזוי באמצעות לפחות שני אלגוריתמים</li>
+        <li>מטריצת בלבול</li>
+        <li>Accuracy, Precision, Recall, F1</li>
+        <li>ממוצעים, ניתוח תוצאות ומסקנות</li>
+        <li>בדיקת השפעת היפר-פרמטרים עבור KNN ועבור SVC</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>סיכום וכללי הגשה</h2>
+      <ul>
+        <li>סיכום ומסקנות לגבי הנתונים והביצועים</li>
+        <li>רפלקציה אישית: מה למדתי, אתגרים, נושאים מעניינים והעמקה עצמית</li>
+        <li>יש להקפיד על כותרות ותיעוד של כל הקודים עם הערות</li>
+        <li>יש לוודא שההגשה קריאה ושילוב עברית ואנגלית נראה תקין</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>דרישות למאגר הנתונים</h2>
+      <ul>
+        <li>500 דוגמאות ויותר</li>
+        <li>לפחות 2 משתנים רציפים ולפחות 2 משתנים בדידים</li>
+        <li>אם אין משתנים בדידים, יש לייצר לפחות 2 מתוך משתנים רציפים</li>
+        <li>במקרה של סיווג: לפחות שתי קטגוריות</li>
+        <li>פיזור יחסית אחיד בין הקטגוריות, או ביצוע איזון</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>אתרים מומלצים לחיפוש מאגרים</h2>
+      <ul>
+        <li>Kaggle</li>
+        <li>Google Dataset Search</li>
+        <li>Data Gov</li>
+        <li>Pixabay</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
