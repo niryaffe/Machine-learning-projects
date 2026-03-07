@@ -1,887 +1,427 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Machine Learning Lab</title>
-  <style>
-    :root{
-      --bg:#0a0d12;
-      --bg2:#11161f;
-      --panel:#151b26;
-      --panel-2:#1b2330;
-      --line:#2b3647;
-      --line-soft:#243142;
-      --text:#f5f7fb;
-      --muted:#b7c2d3;
-      --accent:#7db8ff;
-      --accent-2:#4f8fe6;
-      --button:#d9e7ff;
-      --button-text:#0d1a2b;
-      --shadow:0 14px 40px rgba(0,0,0,.35);
-      --radius:22px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning Lab</title>
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(125,184,255,.12), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(79,143,230,.10), transparent 24%),
-        linear-gradient(180deg, var(--bg) 0%, #0b0f16 100%);
-      overflow-x:hidden;
-    }
+<style>
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:
-        linear-gradient(rgba(125,184,255,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(125,184,255,.05) 1px, transparent 1px);
-      background-size:42px 42px;
-      opacity:.35;
-      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    }
+:root{
+--bg:#0b0f16;
+--panel:#121826;
+--panel2:#1a2233;
+--border:#2b3647;
+--text:#ffffff;
+--muted:#b8c4d6;
+--accent:#7dafff;
+--button:#e6eefc;
+--button-text:#0d1a2b;
+}
 
-    .container{
-      width:min(1220px, calc(100% - 32px));
-      margin:auto;
-      position:relative;
-      z-index:1;
-    }
+*{box-sizing:border-box}
 
-    nav{
-      position:sticky;
-      top:0;
-      z-index:20;
-      backdrop-filter:blur(12px);
-      background:rgba(10,13,18,.88);
-      border-bottom:1px solid rgba(125,184,255,.10);
-    }
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:linear-gradient(180deg,#070b12,#0d1320);
+color:var(--text);
+}
 
-    .nav-inner{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:12px;
-      padding:16px 0;
-    }
+.container{
+max-width:1200px;
+margin:auto;
+padding:0 20px;
+}
 
-    nav a{
-      color:var(--text);
-      text-decoration:none;
-      padding:11px 18px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:rgba(255,255,255,.02);
-      font-weight:700;
-      transition:.2s ease;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
-    }
+nav{
+position:sticky;
+top:0;
+background:#070b12;
+border-bottom:1px solid var(--border);
+z-index:10;
+}
 
-    nav a:hover{
-      border-color:var(--accent);
-      color:#fff;
-      transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(125,184,255,.18), 0 10px 24px rgba(79,143,230,.18);
-    }
+.nav-inner{
+display:flex;
+justify-content:center;
+gap:12px;
+padding:16px 0;
+flex-wrap:wrap;
+}
 
-    header{
-      padding:72px 0 28px;
-    }
+nav a{
+text-decoration:none;
+color:white;
+border:1px solid var(--border);
+padding:10px 18px;
+border-radius:999px;
+font-weight:600;
+}
 
-    .hero{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:24px;
-      align-items:stretch;
-    }
+nav a:hover{
+border-color:var(--accent);
+}
 
-    .hero-main,
-    .section-box{
-      background:linear-gradient(180deg, rgba(21,27,38,.92), rgba(15,20,28,.96));
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
+header{
+padding:70px 0 40px;
+text-align:center;
+}
 
-    .hero-main{
-      padding:42px 34px;
-      position:relative;
-      overflow:hidden;
-      text-align:center;
-    }
+.hero{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:18px;
+padding:40px;
+}
 
-    .hero-main::after{
-      content:"";
-      position:absolute;
-      width:380px;
-      height:380px;
-      border-radius:50%;
-      top:-120px;
-      left:-120px;
-      background:radial-gradient(circle, rgba(125,184,255,.20), transparent 65%);
-      filter:blur(18px);
-      pointer-events:none;
-    }
+.hero h1{
+font-size:56px;
+margin:10px 0;
+}
 
-    .eyebrow{
-      display:inline-block;
-      padding:8px 14px;
-      border-radius:999px;
-      border:1px solid rgba(125,184,255,.22);
-      color:var(--accent);
-      font-size:13px;
-      letter-spacing:1.2px;
-      margin-bottom:18px;
-      background:rgba(125,184,255,.05);
-      position:relative;
-      z-index:1;
-    }
+.hero p{
+color:var(--muted);
+font-size:18px;
+max-width:700px;
+margin:auto;
+line-height:1.7;
+}
 
-    h1{
-      margin:0;
-      font-size:clamp(42px, 8vw, 78px);
-      line-height:1.02;
-      position:relative;
-      z-index:1;
-    }
+.hero img{
+margin-top:25px;
+max-width:420px;
+width:100%;
+border-radius:14px;
+}
 
-    .subtitle{
-      margin:18px auto 0;
-      color:var(--muted);
-      font-size:20px;
-      line-height:1.85;
-      max-width:760px;
-      position:relative;
-      z-index:1;
-    }
+.hero-buttons{
+margin-top:25px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
 
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:14px;
-      margin-top:28px;
-      position:relative;
-      z-index:1;
-    }
+.btn{
+text-decoration:none;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+}
 
-    .btn{
-      display:inline-block;
-      padding:13px 20px;
-      text-decoration:none;
-      border-radius:12px;
-      font-weight:700;
-      transition:.2s ease;
-      border:1px solid var(--line);
-    }
+.btn-primary{
+background:var(--button);
+color:var(--button-text);
+}
 
-    .btn-primary{
-      background:var(--button);
-      color:var(--button-text);
-      border-color:transparent;
-    }
+.btn-secondary{
+border:1px solid var(--border);
+color:white;
+}
 
-    .btn-primary:hover{
-      transform:translateY(-1px);
-      background:#eef5ff;
-    }
+section{
+padding:40px 0;
+}
 
-    .btn-secondary{
-      background:rgba(255,255,255,.03);
-      color:var(--text);
-    }
+.section-box{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:18px;
+padding:30px;
+}
 
-    .btn-secondary:hover{
-      border-color:var(--accent);
-      transform:translateY(-1px);
-    }
+.section-title{
+text-align:center;
+font-size:32px;
+margin-bottom:20px;
+}
 
-    section{
-      padding:14px 0 20px;
-    }
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:18px;
+}
 
-    .section-box{
-      padding:28px 24px 30px;
-    }
+.card{
+background:var(--panel2);
+border:1px solid var(--border);
+border-radius:14px;
+padding:18px;
+}
 
-    .section-title{
-      margin:0 0 24px;
-      text-align:center;
-      font-size:34px;
-    }
+.card h3{
+margin:0 0 10px;
+}
 
-    .section-intro{
-      text-align:center;
-      color:var(--muted);
-      max-width:850px;
-      margin:0 auto 24px;
-      line-height:1.8;
-    }
+.card p{
+color:var(--muted);
+line-height:1.6;
+}
 
-    .two-col{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:20px;
-    }
+.card a{
+display:block;
+margin-top:12px;
+text-align:center;
+background:var(--button);
+color:var(--button-text);
+text-decoration:none;
+padding:10px;
+border-radius:8px;
+font-weight:bold;
+}
 
-    .card{
-      background:linear-gradient(180deg, var(--panel-2), #18202b);
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:22px;
-      box-shadow:0 8px 20px rgba(0,0,0,.18);
-    }
+.search-box{
+margin-bottom:20px;
+display:flex;
+justify-content:center;
+}
 
-    .card h3{
-      margin:0 0 12px;
-      font-size:24px;
-    }
+.search-box input{
+width:320px;
+padding:10px;
+border-radius:8px;
+border:1px solid var(--border);
+background:#0e1524;
+color:white;
+}
 
-    .card p,
-    .card li{
-      color:var(--muted);
-      line-height:1.85;
-      font-size:16px;
-    }
+footer{
+padding:40px 0;
+}
 
-    .card ul{
-      margin:0;
-      padding-right:22px;
-    }
+.footer-box{
+text-align:center;
+border:1px solid var(--border);
+background:var(--panel);
+padding:30px;
+border-radius:18px;
+}
 
-    .tag{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(125,184,255,.12);
-      color:var(--accent);
-      border:1px solid rgba(125,184,255,.18);
-      font-size:12px;
-      font-weight:700;
-      margin-bottom:14px;
-    }
+.footer-box p{
+color:var(--muted);
+}
 
-    .slides-groups{
-      display:grid;
-      gap:22px;
-    }
-
-    .group-box{
-      border:1px solid var(--line-soft);
-      border-radius:18px;
-      padding:18px;
-      background:rgba(255,255,255,.015);
-    }
-
-    .group-box h3{
-      margin:0 0 14px;
-      font-size:24px;
-      color:#fff;
-    }
-
-    .slides-toolbar{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-bottom:20px;
-      padding:16px;
-      border:1px solid var(--line-soft);
-      border-radius:16px;
-      background:rgba(255,255,255,.02);
-    }
-
-    .search-wrap{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex:1 1 320px;
-      min-width:260px;
-      background:#101722;
-      border:1px solid var(--line-soft);
-      border-radius:12px;
-      padding:10px 12px;
-    }
-
-    .search-wrap span{
-      font-size:18px;
-      opacity:.9;
-    }
-
-    .search-wrap input{
-      width:100%;
-      background:transparent;
-      border:none;
-      outline:none;
-      color:var(--text);
-      font-size:16px;
-      font-family:inherit;
-    }
-
-    .search-wrap input::placeholder{
-      color:#8fa1ba;
-    }
-
-    .slides-count{
-      color:var(--muted);
-      font-size:14px;
-      white-space:nowrap;
-    }
-
-    .slides-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-      gap:16px;
-    }
-
-    .slide-card{
-      background:linear-gradient(180deg, #1b2330, #161d27);
-      border:1px solid var(--line-soft);
-      border-radius:16px;
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      min-height:190px;
-    }
-
-    .slide-head{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      margin-bottom:12px;
-    }
-
-    .slide-icon{
-      width:42px;
-      height:42px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      background:rgba(125,184,255,.10);
-      border:1px solid rgba(125,184,255,.20);
-      font-size:20px;
-      flex:0 0 42px;
-    }
-
-    .slide-card h4{
-      margin:0 0 8px;
-      font-size:21px;
-      color:#fff;
-    }
-
-    .slide-card p{
-      margin:0 0 16px;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:15px;
-    }
-
-    .slide-open{
-      display:block;
-      text-align:center;
-      text-decoration:none;
-      background:var(--button);
-      color:var(--button-text);
-      font-weight:700;
-      padding:11px 14px;
-      border-radius:10px;
-    }
-
-    .slide-open:hover{
-      background:#eef5ff;
-    }
-
-    .links-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
-      gap:18px;
-    }
-
-    .resource-link{
-      display:block;
-      text-decoration:none;
-      color:var(--text);
-      background:linear-gradient(180deg, #1b2330, #161d27);
-      border:1px solid var(--line-soft);
-      border-radius:16px;
-      padding:20px;
-      transition:.2s ease;
-    }
-
-    .resource-link:hover{
-      transform:translateY(-2px);
-      border-color:var(--accent);
-      box-shadow:0 10px 24px rgba(79,143,230,.14);
-    }
-
-    .resource-link strong{
-      display:block;
-      margin-bottom:8px;
-      font-size:21px;
-    }
-
-    .resource-link span{
-      color:var(--muted);
-      line-height:1.75;
-    }
-
-    .future-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-      gap:18px;
-    }
-
-    .future-item{
-      background:linear-gradient(180deg, #1b2330, #161d27);
-      border:1px dashed #40516b;
-      border-radius:16px;
-      padding:22px;
-      min-height:130px;
-    }
-
-    .future-item h4{
-      margin:0 0 10px;
-      font-size:22px;
-    }
-
-    .future-item p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.75;
-    }
-
-    footer{
-      padding:22px 0 48px;
-    }
-
-    .footer-box{
-      background:linear-gradient(180deg, rgba(21,27,38,.92), rgba(15,20,28,.96));
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:26px 24px;
-      text-align:center;
-      box-shadow:var(--shadow);
-    }
-
-    .footer-box h3{
-      margin:0 0 10px;
-      font-size:26px;
-    }
-
-    .footer-box p{
-      margin:0 0 18px;
-      color:var(--muted);
-      line-height:1.8;
-    }
-
-    @media (max-width: 900px){
-      .two-col{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width: 640px){
-      .nav-inner{
-        gap:8px;
-      }
-      nav a{
-        padding:9px 14px;
-        font-size:14px;
-      }
-      .section-title{
-        font-size:28px;
-      }
-      .subtitle{
-        font-size:18px;
-      }
-      .slides-toolbar{
-        align-items:stretch;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
 
 <nav>
-  <div class="container nav-inner">
-    <a href="#home">בית</a>
-    <a href="#guidelines">הנחיות לפרויקט</a>
-    <a href="#slides">מצגות לפי נושאים</a>
-    <a href="#datasets">מאגרי נתונים</a>
-    <a href="#future-projects">פרויקטים עתידיים</a>
-    <a href="#tech-center">מרכז טק</a>
-  </div>
+<div class="container nav-inner">
+<a href="#home">בית</a>
+<a href="#guidelines">הנחיות לפרויקט</a>
+<a href="#slides">מצגות לפי נושאים</a>
+<a href="#datasets">מאגרי נתונים</a>
+<a href="#future">פרויקטים עתידיים</a>
+<a href="#tech">מרכז טק</a>
+</div>
 </nav>
 
 <header id="home">
-  <div class="container hero">
-    <div class="hero-main">
-      <div class="eyebrow">PROFESSIONAL ACADEMIC DARK</div>
-      <h1>Machine Learning Lab</h1>
-      <p class="subtitle">
-        אתר קורס מקצועי בלמידת מכונה, עם הנחיות לפרויקט, מצגות לפי נושאים,
-        מאגרי נתונים מומלצים ואזור ייעודי לפרויקטים עתידיים — בעיצוב אקדמי-טכנולוגי נקי,
-        כהה ומרשים.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#slides">למצגות הקורס</a>
-        <a class="btn btn-secondary" href="#guidelines">להנחיות לפרויקט</a>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<div class="hero">
+
+<h1>Machine Learning Lab</h1>
+
+<p>
+אתר הקורס ללמידת מכונה. כאן ניתן למצוא מצגות לפי נושאים, הנחיות לפרויקט,
+מאגרי נתונים מומלצים וחומרים נוספים לעבודה בקורס.
+</p>
+
+<img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c"
+alt="Machine Learning">
+
+<div class="hero-buttons">
+<a class="btn btn-primary" href="#slides">מצגות הקורס</a>
+<a class="btn btn-secondary" href="#guidelines">הנחיות לפרויקט</a>
+</div>
+
+</div>
+</div>
 </header>
 
 <section id="guidelines">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title">Section 1 · הנחיות לפרויקט</h2>
-      <p class="section-intro">
-        אזור מרכזי להגשת פרויקט במדעי הנתונים ולמידת מכונה. כאן מוצג תקציר הדרישות,
-        ובתחתית החלק מופיע מעבר מהיר להנחיות המלאות בתוך אותו הדף.
-      </p>
+<div class="container">
+<div class="section-box">
 
-      <div class="two-col">
-        <div class="card">
-          <span class="tag">Project Guidelines</span>
-          <h3>מה צריך להופיע בפרויקט</h3>
-          <ul>
-            <li>שער מסודר עם שם התלמיד, שם המחקר, שנת לימודים ושם המורה.</li>
-            <li>הקדמה קצרה ותיאור מטרת המחקר.</li>
-            <li>תיאור מאגר הנתונים, המקור וקישור למאגר.</li>
-            <li>חקר נתונים עם גרפים, describe, info ו-groupby.</li>
-            <li>ניקוי נתונים, נרמול והכנה ללמידת מכונה.</li>
-            <li>חלוקה ל-Train / Test והרצת לפחות שני מודלים.</li>
-            <li>בדיקת Accuracy, מטריצת בלבול ומסקנות.</li>
-            <li>סיכום ורפלקציה אישית.</li>
-          </ul>
-          <div style="margin-top:18px;">
-            <a class="btn btn-primary" href="#guidelines-full">לפתיחת ההנחיות המלאות</a>
-          </div>
-        </div>
+<h2 class="section-title">הנחיות לפרויקט</h2>
 
-        <div class="card">
-          <span class="tag">Checklist</span>
-          <h3>דגשים חשובים</h3>
-          <ul>
-            <li>לוודא שתיעוד הקוד ברור ומלווה בהערות.</li>
-            <li>לשמור על שילוב קריא של עברית ואנגלית.</li>
-            <li>להסביר כל שלב בתהליך העבודה והבחירה במודלים.</li>
-            <li>להציג תוצאות באופן מסודר, קריא ומשכנע.</li>
-            <li>להקפיד על מבנה אקדמי מסודר, לא עמוס.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="grid">
 
-<section id="guidelines-full">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title">הנחיות מלאות לפרויקט</h2>
+<div class="card">
+<h3>שער</h3>
+<p>שם תלמיד, שם הפרויקט, שנת לימודים ושם המורה.</p>
+</div>
 
-      <div class="future-grid" style="grid-template-columns:1fr;">
-        <div class="future-item">
-          <h4>שער ונושא המחקר</h4>
-          <p>שם תלמיד/ה + ת״ז, שם המחקר, שנת לימודים, שם המורה, הקדמה קצרה ותמונה הקשורה למאגר או לפרויקט.</p>
-        </div>
-        <div class="future-item">
-          <h4>תיאור הנתונים</h4>
-          <p>תיאור קצר של המאגר, מקור הנתונים, קישור, תיאור עמודות, משמעות כל עמודה והגדרת מטרת הסיווג.</p>
-        </div>
-        <div class="future-item">
-          <h4>חקר נתונים</h4>
-          <p>טעינת נתונים, info, describe, לפחות שתי פקודות groupby, לפחות חמישה גרפים והצגת heatmap לקורלציה.</p>
-        </div>
-        <div class="future-item">
-          <h4>עיבוד וטיוב</h4>
-          <p>טיפול בערכים חסרים, כפילויות, איזון תגיות, נרמול, הנדסת מאפיינים והמרת משתנים קטגוריאליים.</p>
-        </div>
-        <div class="future-item">
-          <h4>למידת מכונה</h4>
-          <p>בחירת עמודות, חלוקה ל-Train/Test, אימון וחיזוי עם לפחות שני אלגוריתמים, בדיקת מדדים וניתוח תוצאות.</p>
-        </div>
-        <div class="future-item">
-          <h4>סיכום וכללי הגשה</h4>
-          <p>מסקנות, רפלקציה אישית, תיעוד מסודר של הקוד, ושמירה על קריאות וארגון מקצועי של העבודה.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="card">
+<h3>תיאור הנתונים</h3>
+<p>הצגת מאגר הנתונים, מקור הנתונים והעמודות המרכזיות.</p>
+</div>
+
+<div class="card">
+<h3>חקר נתונים</h3>
+<p>ניתוח נתונים באמצעות גרפים, describe, info ו‑groupby.</p>
+</div>
+
+<div class="card">
+<h3>למידת מכונה</h3>
+<p>חלוקה ל‑Train/Test והרצת לפחות שני מודלים.</p>
+</div>
+
+</div>
+
+</div>
+</div>
 </section>
 
 <section id="slides">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title">Section 2 · מצגות לפי נושאים</h2>
-      <p class="section-intro">
-        אזור המצגות אורגן לקטגוריות לימוד מרכזיות כדי להפוך את הגישה לחומרים למהירה,
-        ברורה ומקצועית יותר.
-      </p>
+<div class="container">
+<div class="section-box">
 
-      <div class="slides-toolbar">
-        <div class="search-wrap">
-          <span>🔎</span>
-          <input id="slidesSearch" type="text" placeholder="חפש מצגת לפי שם או נושא..." />
-        </div>
-        <div class="slides-count">סנן במהירות את המצגות לפי נושא</div>
-      </div>
+<h2 class="section-title">מצגות לפי נושאים</h2>
 
-      <div class="slides-groups">
-        <div class="group-box">
-          <h3>📘 מבוא ועבודה עם נתונים</h3>
-          <div class="slides-grid">
-            <div class="slide-card" data-search="python data science מבוא נתונים">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">🐍</div>
-                  <div>
-                    <h4>Python for DS</h4>
-                    <span class="tag">מבוא</span>
-                  </div>
-                </div>
-                <p>מבוא לעבודה עם Python בעולם מדעי הנתונים.</p>
-              </div>
-              <a class="slide-open" href="2.1 Python for DS.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
+<div class="search-box">
+<input id="searchSlides" placeholder="חפש מצגת...">
+</div>
 
-            <div class="slide-card" data-search="visualization גרפים ויזואליזציה">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">📊</div>
-                  <div>
-                    <h4>Visualization</h4>
-                    <span class="tag">גרפים</span>
-                  </div>
-                </div>
-                <p>יסודות ויזואליזציה וקריאת נתונים בצורה נכונה.</p>
-              </div>
-              <a class="slide-open" href="3.1 Visualization.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
+<div class="grid" id="slidesGrid">
 
-            <div class="slide-card" data-search="data preparation הכנת נתונים ניקוי">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">🧹</div>
-                  <div>
-                    <h4>Data Preparation</h4>
-                    <span class="tag">ניקוי נתונים</span>
-                  </div>
-                </div>
-                <p>הכנת נתונים, ארגון וניקוי לפני אימון מודלים.</p>
-              </div>
-              <a class="slide-open" href="Data preparation.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
-          </div>
-        </div>
+<div class="card" data-name="python data science">
+<h3>Python for DS</h3>
+<p>מבוא לעבודה עם Python במדעי הנתונים.</p>
+<a href="2.1 Python for DS.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
 
-        <div class="group-box">
-          <h3>🧠 רגרסיה והנדסת מאפיינים</h3>
-          <div class="slides-grid">
-            <div class="slide-card" data-search="feature engineering תכונות הנדסת מאפיינים">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">⚙️</div>
-                  <div>
-                    <h4>Feature Engineering</h4>
-                    <span class="tag">מאפיינים</span>
-                  </div>
-                </div>
-                <p>שיפור המידע הקלט באמצעות יצירה והתאמה של תכונות.</p>
-              </div>
-              <a class="slide-open" href="14.1 Feature engineering.pdf" target="_blank">פתח מצגת</a>
-            </div>
+<div class="card" data-name="visualization graphs">
+<h3>Visualization</h3>
+<p>גרפים והצגת נתונים.</p>
+<a href="3.1 Visualization.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
 
-            <div class="slide-card" data-search="linear regression רגרסיה לינארית sklearn">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">📈</div>
-                  <div>
-                    <h4>Linear Regression</h4>
-                    <span class="tag">רגרסיה</span>
-                  </div>
-                </div>
-                <p>מודל רגרסיה לינארית והיכרות עם פתרון מבוסס sklearn.</p>
-              </div>
-              <a class="slide-open" href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
-          </div>
-        </div>
+<div class="card" data-name="data preparation">
+<h3>Data Preparation</h3>
+<p>ניקוי והכנת נתונים לפני מודלים.</p>
+<a href="Data preparation.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
 
-        <div class="group-box">
-          <h3>🤖 KNN ויישום מעשי</h3>
-          <div class="slides-grid">
-            <div class="slide-card" data-search="knn שכנים קרובים">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">🧭</div>
-                  <div>
-                    <h4>KNN</h4>
-                    <span class="tag">KNN</span>
-                  </div>
-                </div>
-                <p>היכרות עם רעיון השכנים הקרובים.</p>
-              </div>
-              <a class="slide-open" href="5.1 KNN.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
+<div class="card" data-name="knn">
+<h3>KNN</h3>
+<p>היכרות עם אלגוריתם השכנים הקרובים.</p>
+<a href="5.1 KNN.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
 
-            <div class="slide-card" data-search="knn sklearn ספריה">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">🛠️</div>
-                  <div>
-                    <h4>KNN with Sklearn</h4>
-                    <span class="tag">ספריות</span>
-                  </div>
-                </div>
-                <p>יישום KNN עם ספריית sklearn.</p>
-              </div>
-              <a class="slide-open" href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
+<div class="card" data-name="knn sklearn">
+<h3>KNN with Sklearn</h3>
+<p>שימוש בספריית sklearn.</p>
+<a href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
 
-            <div class="slide-card" data-search="knn implementation מימוש">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">💻</div>
-                  <div>
-                    <h4>KNN Implementation</h4>
-                    <span class="tag">מימוש</span>
-                  </div>
-                </div>
-                <p>מימוש מעשי של KNN והבנת תהליך העבודה.</p>
-              </div>
-              <a class="slide-open" href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
-          </div>
-        </div>
+<div class="card" data-name="perceptron svm">
+<h3>Perceptron & SVM</h3>
+<p>מסווגים לינאריים.</p>
+<a href="Percepton and SVM.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
 
-        <div class="group-box">
-          <h3>🧪 מסווגים והערכת ביצועים</h3>
-          <div class="slides-grid">
-            <div class="slide-card" data-search="perceptron svm מסווגים">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">🎯</div>
-                  <div>
-                    <h4>Perceptron & SVM</h4>
-                    <span class="tag">מסווגים</span>
-                  </div>
-                </div>
-                <p>היכרות עם מסווגים לינאריים וגבולות החלטה.</p>
-              </div>
-              <a class="slide-open" href="Percepton and SVM.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
+</div>
 
-            <div class="slide-card" data-search="performance indicators accuracy precision recall">
-              <div>
-                <div class="slide-head">
-                  <div class="slide-icon">📐</div>
-                  <div>
-                    <h4>Performance Indicators</h4>
-                    <span class="tag">מדדים</span>
-                  </div>
-                </div>
-                <p>מדדי ביצוע, Accuracy, Precision, Recall ועוד.</p>
-              </div>
-              <a class="slide-open" href="Performance Indicators updated.pptx.pdf" target="_blank">פתח מצגת</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+</div>
+</div>
 </section>
 
 <section id="datasets">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title">Section 3 · מאגרי נתונים</h2>
-      <p class="section-intro">
-        מקורות איכותיים למציאת datasets לפרויקטים, חקר נתונים ולמידת מכונה.
-      </p>
+<div class="container">
+<div class="section-box">
 
-      <div class="links-grid">
-        <a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank">
-          <strong>📦 Kaggle</strong>
-          <span>מאגר datasets עשיר מאוד עם תחרויות, מחברות וקהילת משתמשים פעילה.</span>
-        </a>
+<h2 class="section-title">מאגרי נתונים</h2>
 
-        <a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank">
-          <strong>🔍 Google Dataset Search</strong>
-          <span>מנוע חיפוש ייעודי למציאת datasets ממקורות אקדמיים וציבוריים.</span>
-        </a>
+<div class="grid">
 
-        <a class="resource-link" href="https://data.gov/" target="_blank">
-          <strong>🏛️ Data.gov</strong>
-          <span>מקור פתוח למאגרי מידע של הממשל שיכולים לשמש למחקר ופרויקטים.</span>
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="card">
+<h3>Kaggle</h3>
+<p>מאגר גדול של datasets לפרויקטים.</p>
+<a href="https://www.kaggle.com/datasets" target="_blank">כניסה</a>
+</div>
+
+<div class="card">
+<h3>Google Dataset Search</h3>
+<p>מנוע חיפוש למציאת datasets.</p>
+<a href="https://datasetsearch.research.google.com/" target="_blank">כניסה</a>
+</div>
+
+<div class="card">
+<h3>Data.gov</h3>
+<p>מאגר נתונים של הממשל.</p>
+<a href="https://data.gov/" target="_blank">כניסה</a>
+</div>
+
+</div>
+
+</div>
+</div>
 </section>
 
-<section id="future-projects">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title">Section 4 · פרויקטים עתידיים</h2>
-      <p class="section-intro">
-        אזור שמיועד להתרחבות בהמשך הקורס. כאן ניתן יהיה להוסיף פרויקטים של תלמידים,
-        תוצרי מודלים, תצוגות גרפים, קישורים למחברות Colab ועוד.
-      </p>
+<section id="future">
+<div class="container">
+<div class="section-box">
 
-      <div class="future-grid">
-        <div class="future-item">
-          <h4>🧑‍🎓 פרויקט תלמידים</h4>
-          <p>אזור להצגת עבודות נבחרות, ניתוחים, גרפים ומסקנות.</p>
-        </div>
-        <div class="future-item">
-          <h4>📉 Model Results</h4>
-          <p>הצגת Accuracy, Confusion Matrix ותוצאות השוואת מודלים.</p>
-        </div>
-        <div class="future-item">
-          <h4>⌨️ Code Examples</h4>
-          <p>קישורים לדוגמאות קוד, מחברות Google Colab ותהליכי עבודה.</p>
-        </div>
-        <div class="future-item">
-          <h4>🗂️ Dataset Library</h4>
-          <p>אוסף מאגרים מומלצים לפרויקטים חדשים בהמשך השנה.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<h2 class="section-title">פרויקטים עתידיים</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>פרויקטי תלמידים</h3>
+<p>הצגת עבודות נבחרות.</p>
+</div>
+
+<div class="card">
+<h3>השוואת מודלים</h3>
+<p>Accuracy ומטריצות בלבול.</p>
+</div>
+
+<div class="card">
+<h3>מחברות Colab</h3>
+<p>קוד ודוגמאות עבודה.</p>
+</div>
+
+</div>
+
+</div>
+</div>
 </section>
 
-<footer id="tech-center">
-  <div class="container">
-    <div class="footer-box">
-      <h3>מרכז טק</h3>
-      <p>קישור לאתר הרשמי של מרכז טק כחלק ממעטפת הלמידה וההשראה לפרויקטים.</p>
-      <a class="btn btn-primary" href="https://www.tech-center.org/" target="_blank">כניסה לאתר מרכז טק</a>
-    </div>
-  </div>
+<footer id="tech">
+<div class="container">
+<div class="footer-box">
+
+<h2>מרכז טק</h2>
+<p>קישור לאתר מרכז טק</p>
+
+<a class="btn btn-primary" href="https://www.tech-center.org/" target="_blank">כניסה לאתר</a>
+
+</div>
+</div>
 </footer>
 
 <script>
-  const searchInput = document.getElementById('slidesSearch');
-  const slideCards = document.querySelectorAll('.slide-card');
 
-  searchInput.addEventListener('input', function () {
-    const q = this.value.trim().toLowerCase();
-    slideCards.forEach(card => {
-      const text = (card.dataset.search + ' ' + card.innerText).toLowerCase();
-      card.style.display = text.includes(q) ? 'flex' : 'none';
-    });
-  });
+const search = document.getElementById("searchSlides")
+const cards = document.querySelectorAll("#slidesGrid .card")
+
+search.addEventListener("input",()=>{
+
+let q = search.value.toLowerCase()
+
+cards.forEach(card=>{
+
+let text = card.dataset.name + card.innerText
+
+card.style.display = text.toLowerCase().includes(q) ? "block" : "none"
+
+})
+
+})
+
 </script>
 
 </body>
