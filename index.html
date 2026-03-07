@@ -1,432 +1,345 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Machine Learning Lab</title>
-  <style>
-    :root{
-      --bg:#f7f7f5;
-      --panel:#ffffff;
-      --panel-soft:#fafafa;
-      --line:#d9d9d9;
-      --line-strong:#bfbfbf;
-      --text:#1f1f1f;
-      --muted:#666666;
-      --accent:#111111;
-      --accent-soft:#f0f0f0;
-      --shadow:0 8px 24px rgba(0,0,0,0.08);
-      --soft-shadow:0 4px 14px rgba(0,0,0,0.06);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--text);
-      background:var(--bg);
-      overflow-x:hidden;
-    }
-    .container{
-      width:min(1220px, calc(100% - 28px));
-      margin:0 auto;
-    }
-    nav{
-      position:sticky;
-      top:0;
-      z-index:60;
-      background:rgba(255,255,255,0.95);
-      backdrop-filter:blur(8px);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:12px;
-      padding:16px 0;
-    }
-    nav a{
-      color:var(--text);
-      text-decoration:none;
-      padding:12px 22px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      transition:.2s ease;
-      font-weight:700;
-      box-shadow:var(--soft-shadow);
-    }
-    nav a:hover{
-      background:var(--accent);
-      color:#fff;
-      transform:translateY(-1px);
-    }
-    header{
-      min-height:68vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:34px 0 20px;
-    }
-    .hero{
-      width:100%;
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:52px 24px 42px;
-      background:linear-gradient(180deg, #ffffff, #f6f6f6);
-      box-shadow:var(--shadow);
-      text-align:center;
-    }
-    .eyebrow{
-      display:inline-block;
-      padding:10px 16px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      color:var(--muted);
-      letter-spacing:2px;
-      font-size:13px;
-      margin-bottom:18px;
-      background:var(--accent-soft);
-    }
-    h1{
-      margin:0;
-      font-size:clamp(52px, 9vw, 100px);
-      line-height:1.02;
-      color:var(--text);
-    }
-    .subtitle{
-      max-width:860px;
-      margin:22px auto 0;
-      font-size:clamp(18px, 2.4vw, 28px);
-      color:var(--muted);
-      line-height:1.8;
-    }
-    .hero-actions{
-      margin-top:30px;
-      display:flex;
-      justify-content:center;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      display:inline-block;
-      text-decoration:none;
-      padding:14px 26px;
-      border-radius:999px;
-      font-weight:700;
-      transition:.2s ease;
-      cursor:pointer;
-      border:1px solid var(--line);
-    }
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-    }
-    .btn-secondary{
-      color:var(--text);
-      background:#fff;
-    }
-    .btn:hover{transform:translateY(-1px)}
-    section{padding:0 0 28px}
-    .section-box{
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:28px 20px 32px;
-      background:var(--panel);
-      box-shadow:var(--shadow);
-    }
-    .section-box.highlight{
-      border-color:var(--line-strong);
-      background:linear-gradient(180deg, #ffffff, #f8f8f8);
-    }
-    .section-title{
-      margin:0 0 22px;
-      font-size:34px;
-      text-align:center;
-      color:var(--text);
-    }
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-      gap:20px;
-    }
-    .card{
-      min-height:190px;
-      border-radius:20px;
-      border:1px solid var(--line);
-      background:var(--panel-soft);
-      padding:24px 20px;
-      text-align:right;
-      box-shadow:var(--soft-shadow);
-      transition:.2s ease;
-    }
-    .card:hover{
-      transform:translateY(-3px);
-    }
-    .card h3{
-      margin:0 0 12px;
-      font-size:27px;
-      color:var(--text);
-    }
-    .card p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.8;
-      font-size:17px;
-    }
-    .tag{
-      display:inline-block;
-      font-size:13px;
-      padding:7px 12px;
-      border-radius:999px;
-      color:#fff;
-      background:var(--accent);
-      font-weight:700;
-      margin-bottom:18px;
-    }
-    .guidelines-list{
-      margin:18px 0 24px;
-      padding:0 22px 0 0;
-      line-height:1.9;
-      color:var(--text);
-      font-size:17px;
-    }
-    .guidelines-list li{margin-bottom:8px}
-    .two-col{
-      display:grid;
-      grid-template-columns:1.3fr .9fr;
-      gap:20px;
-      align-items:stretch;
-    }
-    .mini-list{
-      list-style:none;
-      margin:16px 0 0;
-      padding:0;
-    }
-    .mini-list li{
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      margin-bottom:12px;
-      background:#fff;
-      color:var(--text);
-      line-height:1.7;
-    }
-    .links-grid, .slides-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:20px;
-    }
-    .resource-link{
-      display:block;
-      text-decoration:none;
-      color:var(--text);
-      padding:18px;
-      border-radius:20px;
-      border:1px solid var(--line);
-      background:#fff;
-      transition:.2s ease;
-      box-shadow:var(--soft-shadow);
-      text-align:right;
-    }
-    .resource-link:hover{
-      transform:translateY(-3px);
-    }
-    .resource-link strong{
-      display:block;
-      margin-bottom:8px;
-      font-size:20px;
-      color:var(--text);
-    }
-    .resource-link span{
-      color:var(--muted);
-      line-height:1.7;
-      font-size:15px;
-    }
-    .slide-actions{
-      margin-top:18px;
-    }
-    .slide-actions a{
-      width:100%;
-      text-align:center;
-    }
-    .projects-box .cards{
-      grid-template-columns:1fr;
-      max-width:420px;
-      margin:0 auto;
-    }
-    .projects-box .card{
-      min-height:auto;
-      text-align:center;
-    }
-    .projects-box .card h3{
-      margin:0;
-      font-size:30px;
-    }
-    .tech-center-box{text-align:center}
-    .tech-center-box p{
-      margin:0 0 20px;
-      color:var(--muted);
-      font-size:20px;
-    }
-    footer{
-      padding:18px 0 42px;
-      text-align:center;
-      color:var(--muted);
-      font-size:15px;
-    }
-    @media (max-width:900px){
-      .two-col{grid-template-columns:1fr}
-    }
-    @media (max-width:700px){
-      .hero{padding:38px 18px 30px}
-      .section-title{font-size:28px}
-      .card h3{font-size:24px}
-      .subtitle{font-size:18px}
-      .guidelines-list{font-size:16px}
-      .projects-box .card h3{font-size:24px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning Lab</title>
+
+<style>
+
+:root{
+--bg:#0f1115;
+--panel:#171a21;
+--panel-soft:#1f2430;
+--line:#2d3340;
+--text:#ffffff;
+--muted:#b7c0d1;
+--accent:#4da3ff;
+--shadow:0 10px 30px rgba(0,0,0,0.45);
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+.container{
+width:min(1200px, calc(100% - 30px));
+margin:auto;
+}
+
+nav{
+position:sticky;
+top:0;
+background:#0f1115;
+border-bottom:1px solid var(--line);
+z-index:10;
+}
+
+.nav-inner{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:12px;
+padding:16px 0;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+padding:10px 18px;
+border-radius:999px;
+border:1px solid var(--line);
+background:#1b1f28;
+font-weight:700;
+}
+
+nav a:hover{
+background:var(--accent);
+}
+
+header{
+padding:80px 0;
+text-align:center;
+}
+
+.hero{
+background:var(--panel);
+border-radius:20px;
+padding:60px 30px;
+border:1px solid var(--line);
+box-shadow:var(--shadow);
+}
+
+h1{
+font-size:64px;
+margin:0;
+}
+
+.subtitle{
+margin-top:20px;
+font-size:22px;
+color:var(--muted);
+}
+
+.hero-actions{
+margin-top:30px;
+}
+
+.btn{
+display:inline-block;
+padding:12px 22px;
+border-radius:999px;
+text-decoration:none;
+font-weight:bold;
+border:1px solid var(--line);
+}
+
+.btn-primary{
+background:var(--accent);
+color:white;
+}
+
+section{
+padding:30px 0;
+}
+
+.section-box{
+background:var(--panel);
+border-radius:20px;
+padding:30px;
+border:1px solid var(--line);
+box-shadow:var(--shadow);
+}
+
+.section-title{
+text-align:center;
+margin-bottom:25px;
+font-size:32px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.card{
+background:var(--panel-soft);
+border:1px solid var(--line);
+border-radius:16px;
+padding:22px;
+}
+
+.card h3{
+margin:0 0 10px 0;
+}
+
+.card p{
+color:var(--muted);
+}
+
+.tag{
+display:inline-block;
+background:var(--accent);
+padding:6px 10px;
+border-radius:8px;
+font-size:12px;
+margin-bottom:12px;
+}
+
+.slide-actions{
+margin-top:14px;
+}
+
+.slide-actions a{
+display:block;
+text-align:center;
+padding:10px;
+background:var(--accent);
+color:white;
+text-decoration:none;
+border-radius:10px;
+}
+
+.links-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.resource-link{
+display:block;
+background:var(--panel-soft);
+border:1px solid var(--line);
+border-radius:16px;
+padding:18px;
+color:white;
+text-decoration:none;
+}
+
+.resource-link span{
+color:var(--muted);
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:var(--muted);
+}
+
+</style>
 </head>
+
 <body>
-  <nav>
-    <div class="container nav-inner">
-      <a href="#home">בית</a>
-      <a href="#guidelines">הנחיות</a>
-      <a href="#slides">מצגות</a>
-      <a href="#datasets">מאגרי נתונים</a>
-      <a href="#projects">פרויקטים</a>
-      <a href="#tech-center">מרכז טק</a>
-    </div>
-  </nav>
 
-  <header id="home">
-    <div class="container">
-      <div class="hero">
-        <div class="eyebrow">MACHINE LEARNING · LAB</div>
-        <h1>Machine Learning Lab</h1>
-        <p class="subtitle">
-          אתר תלמידים לפרויקטים, מצגות, חומרים והנחיות בתחום למידת מכונה ומדעי הנתונים.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#guidelines">הנחיות לפרויקט</a>
-          <a class="btn btn-secondary" href="#slides">לגלריית המצגות</a>
-        </div>
-      </div>
-    </div>
-  </header>
+<nav>
+<div class="container nav-inner">
+<a href="#home">בית</a>
+<a href="#guidelines">הנחיות</a>
+<a href="#slides">מצגות</a>
+<a href="#datasets">מאגרי נתונים</a>
+<a href="#projects">פרויקטים</a>
+</div>
+</nav>
 
-  <section id="guidelines">
-    <div class="container">
-      <div class="section-box highlight">
-        <h2 class="section-title">הנחיות לפרויקט</h2>
-        <div class="two-col">
-          <div class="card">
-            <span class="tag">Project Instructions</span>
-            <h3>מה צריך להופיע בפרויקט</h3>
-            <ul class="guidelines-list">
-              <li>שער מסודר עם שם התלמיד, שם המחקר, שנת לימודים ושם המורה.</li>
-              <li>הקדמה קצרה, תיאור מטרת המחקר ותמונה הקשורה למאגר הנתונים או לפרויקט.</li>
-              <li>תיאור מאגר הנתונים: מקור, תאריך עדכון, קישור, סוגי עמודות ומטרת הסיווג.</li>
-              <li>חקר נתונים: טעינה, info, describe, לפחות שתי פקודות groupby ולפחות חמישה גרפים שונים.</li>
-              <li>הצגת קורלציה ב-heatmap בין המאפיינים לשאלת המחקר.</li>
-              <li>עיבוד נתונים: ערכים חסרים, כפילויות, איזון תגיות, נרמול, הנדסת מאפיינים והמרת משתנים קטגוריאליים.</li>
-              <li>למידת מכונה: בחירת עמודות, חלוקה ל-train/test ואימון לפחות שני אלגוריתמים.</li>
-              <li>בדיקת ביצועים: מטריצת בלבול, Accuracy, Precision, Recall, F1, ניתוח ומסקנות.</li>
-              <li>בדיקת השפעת היפר-פרמטרים, כולל KNN ומודל SVC.</li>
-              <li>סיכום ורפלקציה אישית על תהליך הלמידה והעבודה.</li>
-            </ul>
-            <a class="btn btn-primary" href="project-guidelines.html">פתיחת ההנחיות</a>
-          </div>
+<header id="home">
+<div class="container hero">
+<h1>Machine Learning Lab</h1>
+<p class="subtitle">
+אתר תלמידים לפרויקטים, מצגות וחומרי לימוד בלמידת מכונה
+</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#slides">מצגות הקורס</a>
+</div>
+</div>
+</header>
 
-          <div class="card">
-            <span class="tag">Checklist</span>
-            <h3>דגשים חשובים</h3>
-            <ul class="mini-list">
-              <li>יש לתעד את כל הקוד עם הערות ולוודא שההסברים מסודרים לפי הסעיפים.</li>
-              <li>יש להקפיד על כותרות ברורות, שילוב קריא של עברית ואנגלית והגשה מסודרת.</li>
-              <li>מאגר הנתונים צריך לכלול 500 דוגמאות ויותר.</li>
-              <li>נדרשים לפחות 2 משתנים רציפים ולפחות 2 משתנים בדידים.</li>
-              <li>במקרה של סיווג, נדרשות לפחות שתי קטגוריות.</li>
-              <li>אם המאגר לא מאוזן, ניתן לבצע איזון תגיות.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section id="slides">
+<div class="container">
+<div class="section-box">
 
-  <section id="slides">
-    <div class="container">
-      <div class="section-box">
-        <h2 class="section-title">Slides Gallery</h2>
-        <div class="slides-grid">
-          <article class="card"><span class="tag">PDF</span><h3>14.1 Feature engineering</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="14.1 Feature engineering.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>2.1 Python for DS</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="2.1 Python for DS.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>3.1 Visualization</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="3.1 Visualization.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>4.2 Linear regression with sklearn</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>4.3 Linear regresssion analytic solution</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="4.3 Linear regresssion analytic solution.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>5.1 KNN</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="5.1 KNN.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>5.2 KNN with Sklearn</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>5.3 KNN with code implementation</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>Data preparation</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="Data preparation.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>Percepton and SVM</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="Percepton and SVM.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>Performance Indicators updated</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="Performance Indicators updated.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>יישום מכונה לומדת</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="יישום מכונה לומדת.pptx.pdf" target="_blank">פתיחת המצגת</a></div></article>
-          <article class="card"><span class="tag">PDF</span><h3>מאגרי נתונים וטבלאות</h3><p>קובץ מצגת לפתיחה ישירה מתוך האתר.</p><div class="slide-actions"><a class="btn btn-primary" href="מאגרי נתונים וטבלאות.pdf" target="_blank">פתיחת המצגת</a></div></article>
-        </div>
-      </div>
-    </div>
-  </section>
+<h2 class="section-title">Slides Gallery</h2>
 
-  <section id="datasets">
-    <div class="container">
-      <div class="section-box">
-        <h2 class="section-title">Datasets for Projects</h2>
-        <div class="links-grid">
-          <a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank" rel="noopener noreferrer">
-            <strong>Kaggle</strong>
-            <span>מאגר גדול של datasets לפרויקטים במדעי הנתונים ולמידת מכונה.</span>
-          </a>
-          <a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank" rel="noopener noreferrer">
-            <strong>Google Dataset Search</strong>
-            <span>מנוע חיפוש ייעודי למציאת מאגרי נתונים ממקורות שונים.</span>
-          </a>
-          <a class="resource-link" href="https://data.gov/" target="_blank" rel="noopener noreferrer">
-            <strong>Data.gov</strong>
-            <span>מקור למאגרי נתונים ציבוריים שיכולים לשמש לעבודות חקר.</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="cards">
 
-  <section id="tech-center">
-    <div class="container">
-      <div class="section-box tech-center-box">
-        <h2 class="section-title">מרכז טק</h2>
-        <p>לקישור לאתר הרשמי של מרכז טק:</p>
-        <a class="btn btn-primary" href="https://www.tech-center.org/" target="_blank" rel="noopener noreferrer">כניסה לאתר מרכז טק</a>
-      </div>
-    </div>
-  </section>
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Feature Engineering</h3>
+<div class="slide-actions">
+<a href="14.1 Feature engineering.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
 
-  <section id="projects">
-    <div class="container">
-      <div class="section-box projects-box">
-        <h2 class="section-title">Project Area</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>New Projects</h3>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Python for DS</h3>
+<div class="slide-actions">
+<a href="2.1 Python for DS.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
 
-  <footer>
-    Machine Learning Lab
-  </footer>
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Visualization</h3>
+<div class="slide-actions">
+<a href="3.1 Visualization.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Linear Regression</h3>
+<div class="slide-actions">
+<a href="4.2 Linear regression with sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>KNN</h3>
+<div class="slide-actions">
+<a href="5.1 KNN.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>KNN with Sklearn</h3>
+<div class="slide-actions">
+<a href="5.2 KNN with Sklearn.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>KNN Implementation</h3>
+<div class="slide-actions">
+<a href="5.3 KNN with code implementation.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Data Preparation</h3>
+<div class="slide-actions">
+<a href="Data preparation.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Perceptron & SVM</h3>
+<div class="slide-actions">
+<a href="Percepton and SVM.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+<div class="card">
+<span class="tag">PDF</span>
+<h3>Performance Indicators</h3>
+<div class="slide-actions">
+<a href="Performance Indicators updated.pptx.pdf" target="_blank">פתח מצגת</a>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="datasets">
+<div class="container">
+<div class="section-box">
+
+<h2 class="section-title">Datasets</h2>
+
+<div class="links-grid">
+
+<a class="resource-link" href="https://www.kaggle.com/datasets" target="_blank">
+<strong>Kaggle</strong>
+<span>מאגר datasets גדול ללמידת מכונה</span>
+</a>
+
+<a class="resource-link" href="https://datasetsearch.research.google.com/" target="_blank">
+<strong>Google Dataset Search</strong>
+<span>חיפוש datasets למחקר</span>
+</a>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<footer>
+Machine Learning Lab
+</footer>
+
 </body>
 </html>
