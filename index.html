@@ -1,628 +1,676 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Machine Learning Lab</title>
-<style>
-:root{
-  --bg:#070b12;
-  --bg2:#0c1320;
-  --panel:rgba(18,24,38,.82);
-  --panel-soft:rgba(28,38,58,.92);
-  --border:rgba(125,175,255,.16);
-  --border-strong:rgba(125,175,255,.34);
-  --text:#f7faff;
-  --muted:#c3cfe0;
-  --accent:#8dbcff;
-  --button:#eef4ff;
-  --button-text:#0d1a2b;
-  --glow:0 0 0 1px rgba(125,175,255,.14), 0 16px 38px rgba(0,0,0,.42);
-  --shadow:0 22px 50px rgba(0,0,0,.42);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 12% 10%, rgba(141,188,255,.12), transparent 22%),
-    radial-gradient(circle at 86% 18%, rgba(141,188,255,.10), transparent 18%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-  overflow-x:hidden;
-}
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(125,175,255,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125,175,255,.05) 1px, transparent 1px);
-  background-size:46px 46px;
-  mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
-  opacity:.38;
-}
-.container{
-  max-width:1240px;
-  margin:auto;
-  padding:0 22px;
-  position:relative;
-  z-index:1;
-}
-nav{
-  position:sticky;
-  top:0;
-  z-index:50;
-  backdrop-filter:blur(14px);
-  background:rgba(7,11,18,.78);
-  border-bottom:1px solid rgba(125,175,255,.12);
-}
-.nav-inner{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  padding:16px 0;
-  flex-wrap:wrap;
-  align-items:center;
-}
-nav a, .lang-btn{
-  text-decoration:none;
-  color:var(--text);
-  border:1px solid var(--border);
-  padding:13px 22px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:18px;
-  font-family:Arial, Helvetica, sans-serif;
-  background:rgba(255,255,255,.02);
-  cursor:pointer;
-  transition:.22s ease;
-}
-nav a:hover, .lang-btn:hover, .lang-btn.active{
-  border-color:var(--border-strong);
-  transform:translateY(-1px);
-  box-shadow:0 0 0 1px rgba(125,175,255,.18), 0 12px 24px rgba(141,188,255,.12);
-}
-.lang-switch{display:flex; gap:8px; margin-inline-start:8px;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Machine Learning Lab</title>
 
-header{
-  padding:82px 0 34px;
-  text-align:center;
-}
-.hero{
-  background:linear-gradient(180deg, rgba(20,27,42,.9), rgba(14,20,31,.96));
-  border:1px solid var(--border);
-  border-radius:28px;
-  padding:58px 42px;
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  width:460px;
-  height:460px;
-  border-radius:50%;
-  top:-190px;
-  left:-140px;
-  background:radial-gradient(circle, rgba(141,188,255,.20), transparent 65%);
-  filter:blur(20px);
-  pointer-events:none;
-}
-.hero h1{
-  font-size:clamp(52px,8vw,86px);
-  margin:6px 0 14px;
-  position:relative;
-  z-index:1;
-  letter-spacing:.2px;
-}
-.hero p{
-  color:var(--muted);
-  font-size:22px;
-  max-width:860px;
-  margin:auto;
-  line-height:1.9;
-  position:relative;
-  z-index:1;
-}
-.hero-buttons{
-  margin-top:32px;
-  display:flex;
-  justify-content:center;
-  gap:16px;
-  flex-wrap:wrap;
-  position:relative;
-  z-index:1;
-}
-.btn{
-  text-decoration:none;
-  padding:16px 28px;
-  border-radius:14px;
-  font-weight:700;
-  font-size:19px;
-  font-family:Arial, Helvetica, sans-serif;
-  display:inline-block;
-  transition:.22s ease;
-}
-.btn-primary{
-  background:var(--button);
-  color:var(--button-text);
-}
-.btn-primary:hover{transform:translateY(-1px); background:#f7faff;}
-.btn-secondary{
-  border:1px solid var(--border);
-  color:white;
-  background:rgba(255,255,255,.03);
-}
-.btn-secondary:hover{border-color:var(--border-strong); transform:translateY(-1px);}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-section{padding:20px 0 28px;}
-.section-box{
-  background:linear-gradient(180deg, var(--panel), rgba(16,22,34,.94));
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:36px 32px;
-  box-shadow:var(--glow);
-}
-.section-title{
-  text-align:center;
-  font-size:40px;
-  margin:0 0 24px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-  gap:22px;
-}
-.card{
-  background:linear-gradient(180deg, var(--panel-soft), rgba(22,30,46,.98));
-  border:1px solid rgba(125,175,255,.12);
-  border-radius:18px;
-  padding:24px;
-  box-shadow:0 12px 26px rgba(0,0,0,.18);
-  transition:.22s ease;
-  min-height:190px;
-}
-.card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(125,175,255,.24);
-  box-shadow:0 18px 34px rgba(0,0,0,.24);
-}
-.card h3{
-  margin:0 0 12px;
-  font-size:28px;
-}
-.card p, .card li{
-  color:var(--muted);
-  line-height:1.82;
-  font-size:18px;
-}
-.card a{
-  display:block;
-  margin-top:16px;
-  text-align:center;
-  background:var(--button);
-  color:var(--button-text);
-  text-decoration:none;
-  padding:13px 16px;
-  border-radius:12px;
-  font-weight:700;
-  font-size:18px;
-  font-family:Arial, Helvetica, sans-serif;
-}
-.card a:hover{background:#f7faff;}
+  <style>
+    :root {
+      --accent: #D42897;
+      --accent-dark: #b51f80;
+      --soft-gray: #eaebec;
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #f8f9fa;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      --radius: 20px;
+      --max-width: 1180px;
+    }
 
-.search-box{
-  margin-bottom:26px;
-  display:flex;
-  justify-content:center;
-}
-.search-wrap{
-  width:min(520px,100%);
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 16px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.025);
-}
-.search-wrap input{
-  width:100%;
-  background:transparent;
-  border:none;
-  outline:none;
-  color:white;
-  font-size:18px;
-  font-family:Arial, Helvetica, sans-serif;
-}
-.search-wrap input::placeholder{color:#93a6c5;}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-.details-list{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:18px;
-}
-.detail-item{
-  background:linear-gradient(180deg, var(--panel-soft), rgba(22,30,46,.98));
-  border:1px solid rgba(125,175,255,.12);
-  border-radius:18px;
-  padding:24px;
-}
-.detail-item h4{
-  margin:0 0 12px;
-  font-size:26px;
-}
-.detail-item ul{
-  margin:0;
-  padding-inline-start:24px;
-}
-.detail-item li{
-  color:var(--muted);
-  line-height:1.9;
-  font-size:18px;
-}
+    body {
+      margin: 0;
+      font-family: 'Assistant', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
 
-footer{padding:30px 0 52px;}
-.footer-box{
-  text-align:center;
-  border:1px solid var(--border);
-  background:linear-gradient(180deg, var(--panel), rgba(15,21,32,.95));
-  padding:34px;
-  border-radius:24px;
-  box-shadow:var(--glow);
-}
-.footer-box h2{
-  font-size:38px;
-  margin:0 0 12px;
-}
-.footer-box p{
-  color:var(--muted);
-  line-height:1.8;
-  font-size:20px;
-  margin:0 0 20px;
-}
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
 
-@media (max-width:700px){
-  .hero h1{font-size:44px}
-  .hero p{font-size:19px}
-  .search-wrap{width:100%}
-  .section-title{font-size:32px}
-  .card h3{font-size:24px}
-  .detail-item h4{font-size:22px}
-  .card p, .card li, .detail-item li{font-size:17px}
-  nav a, .lang-btn{font-size:16px; padding:11px 18px}
-  .btn, .card a{font-size:17px}
-}
-</style>
+    .container {
+      width: min(100% - 32px, var(--max-width));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 74px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.25rem;
+      white-space: nowrap;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), #ef74be);
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 18px;
+      justify-content: center;
+    }
+
+    .nav a {
+      color: var(--text);
+      font-weight: 700;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+      background: #fdf2f8;
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #ffffff 0%, var(--soft-gray) 100%);
+      padding: 64px 0 40px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #fde7f4;
+      color: var(--accent);
+      border: 1px solid #f7c4e1;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.08;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(212, 40, 151, 0.24);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid #f2bfdc;
+    }
+
+    .btn-secondary:hover {
+      background: #fff7fb;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    main { padding: 34px 0 60px; }
+    .section { margin-top: 28px; }
+
+    .section-header { margin-bottom: 18px; }
+
+    .section-header h2 {
+      margin: 0 0 8px;
+      font-size: 1.9rem;
+      color: var(--accent);
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      height: 100%;
+    }
+
+    .card h3, .card h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+
+    .card ul {
+      margin: 0;
+      padding-inline-start: 20px;
+      color: var(--text);
+    }
+
+    .card li + li { margin-top: 6px; }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .chip {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .step-title {
+      color: var(--accent);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .search-box { margin-bottom: 20px; }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #fff;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(212, 40, 151, 0.08);
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 44px;
+      background: #fff;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .hidden-en .en,
+    .hidden-he .he {
+      display: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 0;
+      }
+
+      .brand { justify-content: center; }
+      .nav { justify-content: center; }
+      .lang-switch { align-self: center; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 36px; }
+      .hero-card, .panel { padding: 20px; }
+      h1 { font-size: 2.1rem; }
+    }
+  </style>
 </head>
-<body>
+<body class="hidden-en">
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <span>Machine Learning Lab</span>
+      </div>
 
-<nav>
-  <div class="container nav-inner">
-    <a href="#home" data-i18n="nav_home">בית</a>
-    <a href="#guidelines" data-i18n="nav_guidelines">הנחיות לפרויקט</a>
-    <a href="#guidelines-full" data-i18n="nav_guidelines_full">הסבר מפורט</a>
-    <a href="#slides" data-i18n="nav_slides">מצגות לפי נושאים</a>
-    <a href="#datasets" data-i18n="nav_datasets">מאגרי נתונים</a>
-    <a href="#tech" data-i18n="nav_tech">מרכז טק</a>
+      <nav class="nav">
+        <a href="#home"><span class="he">בית</span><span class="en">Home</span></a>
+        <a href="#guidelines"><span class="he">הנחיות לפרויקט</span><span class="en">Project Guidelines</span></a>
+        <a href="#details"><span class="he">הסבר מפורט</span><span class="en">Detailed Explanation</span></a>
+        <a href="#slides"><span class="he">מצגות לפי נושאים</span><span class="en">Slides by Topic</span></a>
+        <a href="#datasets"><span class="he">מאגרי נתונים</span><span class="en">Datasets</span></a>
+        <a href="https://www.tech-center.org" target="_blank" rel="noopener noreferrer">
+          <span class="he">מרכז טק</span><span class="en">Tech Center</span>
+        </a>
+      </nav>
 
-    <div class="lang-switch">
-      <button class="lang-btn active" id="btn-he">עברית</button>
-      <button class="lang-btn" id="btn-en">English</button>
-    </div>
-  </div>
-</nav>
-
-<header id="home">
-  <div class="container">
-    <div class="hero">
-      <h1 data-i18n="hero_title">Machine Learning Lab</h1>
-      <p data-i18n="hero_subtitle">אתר הקורס ללמידת מכונה. כאן ניתן למצוא מצגות לפי נושאים, הנחיות לפרויקט ומאגרי נתונים מומלצים לפרויקטים.</p>
-      <div class="hero-buttons">
-        <a class="btn btn-primary" href="#slides" data-i18n="hero_btn_slides">מצגות הקורס</a>
-        <a class="btn btn-secondary" href="#guidelines" data-i18n="hero_btn_guidelines">הנחיות לפרויקט</a>
-        <a class="btn btn-secondary" href="#guidelines-full" data-i18n="hero_btn_details">הסבר מפורט</a>
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-he">עברית</button>
+        <button class="lang-btn" id="btn-en">English</button>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<section id="guidelines">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title" data-i18n="guidelines_title">הנחיות לפרויקט</h2>
-      <div class="grid">
-        <div class="card">
-          <h3 data-i18n="g1_title">שער ונושא המחקר</h3>
-          <p data-i18n="g1_text">שם תלמיד/ה + ת״ז, שם המחקר, שנת לימודים, שם המורה, הקדמה קצרה ותמונה הקשורה למאגר או לפרויקט.</p>
-        </div>
-        <div class="card">
-          <h3 data-i18n="g2_title">תיאור הנתונים</h3>
-          <p data-i18n="g2_text">תיאור קצר של מאגר הנתונים, מקור הנתונים, קישור למאגר, סוגי הנתונים במאגר והעמודות שיכולות לשמש כתכונות וכמטרה.</p>
-        </div>
-        <div class="card">
-          <h3 data-i18n="g3_title">חקר נתונים</h3>
-          <p data-i18n="g3_text">טעינת נתונים, info, describe, לפחות 2 פקודות groupby, לפחות 5 גרפים שונים והצגת קורלציה עם heatmap.</p>
-        </div>
-        <div class="card">
-          <h3 data-i18n="g4_title">עיבוד ולמידת מכונה</h3>
-          <p data-i18n="g4_text">ניקוי נתונים, איזון תגיות, נרמול, הנדסת מאפיינים, חלוקה ל-Train/Test, אימון לפחות שני אלגוריתמים ובחינת ביצועים.</p>
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <div class="eyebrow"><span class="he">מעבדת למידת מכונה</span><span class="en">Machine Learning Lab</span></div>
+
+        <h1><span class="he">אתר הקורס ללמידת מכונה</span><span class="en">Course Website for Machine Learning</span></h1>
+
+        <p>
+          <span class="he">כאן ניתן למצוא הנחיות לפרויקט, הסבר מפורט, מצגות לפי נושאים ומאגרי נתונים מומלצים לפרויקטים.</span>
+          <span class="en">Here you can find project guidelines, a detailed explanation, topic-based slides, and recommended datasets for projects.</span>
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#slides"><span class="he">למצגות הקורס</span><span class="en">Open Course Slides</span></a>
+          <a class="btn btn-secondary" href="#guidelines"><span class="he">להנחיות הפרויקט</span><span class="en">View Project Guidelines</span></a>
+          <a class="btn btn-secondary" href="#details"><span class="he">להסבר המפורט</span><span class="en">Read Detailed Guide</span></a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section id="guidelines-full">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title" data-i18n="details_title">הסבר מפורט על הפרויקט</h2>
-      <div class="details-list">
-        <div class="detail-item">
-          <h4 data-i18n="dsec1_title">שער ונושא המחקר</h4>
-          <ul>
-            <li data-i18n="dsec1_1">שם תלמיד/ה + ת״ז</li>
-            <li data-i18n="dsec1_2">שם המחקר</li>
-            <li data-i18n="dsec1_3">שנת לימודים</li>
-            <li data-i18n="dsec1_4">שם המורה</li>
-            <li data-i18n="dsec1_5">הקדמה - תיאור קצר של מטרת המחקר ושל מה הסיווג</li>
-            <li data-i18n="dsec1_6">תמונה הקשורה למאגר הנתונים או לפרויקט</li>
-          </ul>
+      <div class="hero-side">
+        <div class="mini-card">
+          <h3><span class="he">דגשים מרכזיים</span><span class="en">Key Highlights</span></h3>
+          <p><span class="he">חקר נתונים, ניקוי, הנדסת מאפיינים, מודלים, מדדי ביצוע ומסקנות.</span><span class="en">Data exploration, cleaning, feature engineering, models, evaluation metrics, and conclusions.</span></p>
         </div>
 
-        <div class="detail-item">
-          <h4 data-i18n="dsec2_title">תיאור הנתונים</h4>
-          <ul>
-            <li data-i18n="dsec2_1">תיאור קצר של מאגר הנתונים</li>
-            <li data-i18n="dsec2_2">מקור הנתונים: מאיפה נלקח, מי הכין, טווח זמנים, גרסאות ותאריך עדכון אחרון</li>
-            <li data-i18n="dsec2_3">קישור למאגר הנתונים</li>
-            <li data-i18n="dsec2_4">כמה רשומות, כמה עמודות, אילו סוגי נתונים ומה משמעות כל עמודה</li>
-            <li data-i18n="dsec2_5">אילו עמודות יכולות לשמש כתכונות לסיווג וכמטרה</li>
-          </ul>
-        </div>
-
-        <div class="detail-item">
-          <h4 data-i18n="dsec3_title">חקר נתונים</h4>
-          <ul>
-            <li data-i18n="dsec3_1">טעינת נתונים והצגה של נתונים מהמאגר</li>
-            <li data-i18n="dsec3_2">הצגת info על המאגר: סוגים, רשומות מלאות, כמות מכל סיווג ונתונים חסרים</li>
-            <li data-i18n="dsec3_3">שימוש ב-describe: ממוצעים, סטיות תקן, מינימום, חציונים ומקסימום</li>
-            <li data-i18n="dsec3_4">לפחות 2 פקודות groupby ולרשום מסקנה לכל פקודה</li>
-            <li data-i18n="dsec3_5">לפחות 5 סוגי גרפים שונים, כותרות, הסברים, מסקנות והשערות מכל גרף</li>
-            <li data-i18n="dsec3_6">הצגת קורלציה עם heatmap בין המאפיינים לשאלת המחקר</li>
-          </ul>
-        </div>
-
-        <div class="detail-item">
-          <h4 data-i18n="dsec4_title">עיבוד נתונים וטיוב</h4>
-          <ul>
-            <li data-i18n="dsec4_1">זיהוי ערכים חסרים - השלמה או הסרה בהתאם</li>
-            <li data-i18n="dsec4_2">זיהוי חריגים וטיפול (רשות)</li>
-            <li data-i18n="dsec4_3">זיהוי כפילויות וטיפול</li>
-            <li data-i18n="dsec4_4">איזון תגיות במקרי קיצון</li>
-            <li data-i18n="dsec4_5">נרמול הנתונים</li>
-            <li data-i18n="dsec4_6">הנדסת מאפיינים - הוספת והורדת משתנים</li>
-            <li data-i18n="dsec4_7">הפיכת משתנים קטגוריאליים למספריים, כולל One Hot Encoding</li>
-          </ul>
-        </div>
-
-        <div class="detail-item">
-          <h4 data-i18n="dsec5_title">למידת מכונה וביצועים</h4>
-          <ul>
-            <li data-i18n="dsec5_1">בחירת עמודות לקלט והסבר מדוע נבחרו או הוסרו</li>
-            <li data-i18n="dsec5_2">חלוקת הנתונים לקבוצת אימון וקבוצת בדיקה</li>
-            <li data-i18n="dsec5_3">אימון וחיזוי באמצעות לפחות שני אלגוריתמים שלמדנו</li>
-            <li data-i18n="dsec5_4">מטריצת בלבול, Accuracy, Precision, Recall, F1 וממוצעים</li>
-            <li data-i18n="dsec5_5">ניתוח ומסקנות</li>
-            <li data-i18n="dsec5_6">חקר השפעת שינוי היפר-פרמטרים על הביצועים ב-KNN וב-SVC</li>
-            <li data-i18n="dsec5_7">הצגת השינויים במדד ביצוע כללי כמו Accuracy או F1</li>
-          </ul>
-        </div>
-
-        <div class="detail-item">
-          <h4 data-i18n="dsec6_title">סיכום, כללי הגשה וקריטריונים</h4>
-          <ul>
-            <li data-i18n="dsec6_1">סיכום ומסקנות לגבי הנתונים, ההשערות והביצועים</li>
-            <li data-i18n="dsec6_2">רפלקציה אישית - מה למדתי, אתגרים, נושאים מעניינים והעמקה עצמית</li>
-            <li data-i18n="dsec6_3">יש להקפיד על כותרות בתאי טקסט בכל הסעיפים הרלוונטיים</li>
-            <li data-i18n="dsec6_4">יש לתעד את כל הקודים עם הערות</li>
-            <li data-i18n="dsec6_5">יש להגיש קובץ Colab מסודר עם הסברים ותשובות מילוליות</li>
-            <li data-i18n="dsec6_6">חובה לוודא שהכל קריא ושהשילוב של עברית ואנגלית תקין</li>
-            <li data-i18n="dsec6_7">מספר דוגמאות: 500 ויותר, לפחות 2 משתנים רציפים ו-2 בדידים</li>
-            <li data-i18n="dsec6_8">במקרה של סיווג: לפחות שתי מחלקות ופיזור יחסית אחיד בין קבוצות</li>
-          </ul>
+        <div class="mini-card">
+          <h3><span class="he">סביבת עבודה</span><span class="en">Work Environment</span></h3>
+          <p><span class="he">מומלץ להגיש קובץ Colab מסודר, עם קוד מתועד והסברים מילוליים.</span><span class="en">It is recommended to submit a well-organized Colab file with documented code and written explanations.</span></p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="slides">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title" data-i18n="slides_title">מצגות לפי נושאים</h2>
-      <div class="search-box">
-        <div class="search-wrap">
-          <span>⌕</span>
-          <input id="searchSlides" placeholder="חפש מצגת..." data-i18n-placeholder="search_placeholder">
+  <main>
+    <div class="container">
+
+      <section class="section" id="guidelines">
+        <div class="section-header">
+          <h2><span class="he">הנחיות לפרויקט</span><span class="en">Project Guidelines</span></h2>
+          <p><span class="he">השלבים המרכזיים הנדרשים לביצוע הפרויקט.</span><span class="en">The main stages required for completing the project.</span></p>
         </div>
-      </div>
-      <div class="grid" id="slidesGrid">
-        <div class="card" data-search-he="python data science מבוא נתונים" data-search-en="python data science intro data">
-          <h3 data-i18n="s1_title">Python for DS</h3>
-          <p data-i18n="s1_text">מבוא לעבודה עם Python במדעי הנתונים.</p>
-          <a href="2.1 Python for DS.pptx.pdf" target="_blank" data-i18n="open_slide">פתח מצגת</a>
+
+        <div class="panel">
+          <div class="grid-2">
+            <div class="card">
+              <h3><span class="he">שער ונושא המחקר</span><span class="en">Cover and Research Topic</span></h3>
+              <ul>
+                <li class="he">שם תלמיד/ה + ת״ז</li><li class="en">Student name + ID</li>
+                <li class="he">שם המחקר</li><li class="en">Research title</li>
+                <li class="he">שנת לימודים</li><li class="en">School year</li>
+                <li class="he">שם המורה</li><li class="en">Teacher name</li>
+                <li class="he">הקדמה קצרה ותמונה הקשורה למאגר או לפרויקט</li><li class="en">A short introduction and an image related to the dataset or project</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3><span class="he">תיאור הנתונים</span><span class="en">Data Description</span></h3>
+              <ul>
+                <li class="he">תיאור קצר של מאגר הנתונים</li><li class="en">Short description of the dataset</li>
+                <li class="he">מקור הנתונים וקישור למאגר</li><li class="en">Dataset source and link</li>
+                <li class="he">סוגי הנתונים במאגר</li><li class="en">Types of data in the dataset</li>
+                <li class="he">עמודות שיכולות לשמש כתכונות וכמטרה</li><li class="en">Columns that can serve as features and target</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3><span class="he">חקר נתונים</span><span class="en">Data Exploration</span></h3>
+              <ul>
+                <li class="he">טעינת נתונים, info, describe</li><li class="en">Load data, info, describe</li>
+                <li class="he">לפחות 2 פקודות groupby</li><li class="en">At least 2 groupby commands</li>
+                <li class="he">לפחות 5 גרפים שונים</li><li class="en">At least 5 different graphs</li>
+                <li class="he">הצגת קורלציה עם heatmap</li><li class="en">Present correlation with a heatmap</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3><span class="he">עיבוד ולמידת מכונה</span><span class="en">Processing and Machine Learning</span></h3>
+              <ul>
+                <li class="he">ניקוי נתונים</li><li class="en">Data cleaning</li>
+                <li class="he">איזון תגיות</li><li class="en">Label balancing</li>
+                <li class="he">נרמול</li><li class="en">Normalization</li>
+                <li class="he">הנדסת מאפיינים</li><li class="en">Feature engineering</li>
+                <li class="he">חלוקה ל-Train/Test ואימון לפחות שני אלגוריתמים</li><li class="en">Train/Test split and training at least two algorithms</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="card" data-search-he="visualization graphs ויזואליזציה גרפים" data-search-en="visualization graphs charts">
-          <h3 data-i18n="s2_title">Visualization</h3>
-          <p data-i18n="s2_text">גרפים והצגת נתונים.</p>
-          <a href="3.1 Visualization.pptx.pdf" target="_blank" data-i18n="open_slide">פתח מצגת</a>
+      </section>
+
+      <section class="section" id="details">
+        <div class="section-header">
+          <h2><span class="he">הסבר מפורט על הפרויקט</span><span class="en">Detailed Project Explanation</span></h2>
+          <p><span class="he">פירוט מלא של הסעיפים והדרישות להגשה.</span><span class="en">A full breakdown of the sections and submission requirements.</span></p>
         </div>
-        <div class="card" data-search-he="data preparation הכנת נתונים ניקוי" data-search-en="data preparation cleaning preprocessing">
-          <h3 data-i18n="s3_title">Data Preparation</h3>
-          <p data-i18n="s3_text">ניקוי והכנת נתונים לפני מודלים.</p>
-          <a href="Data preparation.pptx.pdf" target="_blank" data-i18n="open_slide">פתח מצגת</a>
+
+        <div class="panel">
+          <div class="steps">
+            <div class="step"><div class="step-title"><span class="he">1. שער ונושא המחקר</span><span class="en">1. Cover and Research Topic</span></div><div class="he">שם תלמיד/ה + ת״ז, שם המחקר, שנת לימודים, שם המורה, הקדמה קצרה על מטרת המחקר ותמונה הקשורה לפרויקט.</div><div class="en">Student name + ID, research title, school year, teacher name, a short introduction to the purpose of the research, and an image related to the project.</div></div>
+            <div class="step"><div class="step-title"><span class="he">2. תיאור הנתונים</span><span class="en">2. Data Description</span></div><div class="he">תיאור המאגר, המקור, טווח זמנים, גרסה, עדכון אחרון, מספר רשומות ועמודות, משמעות העמודות ובחירת מאפייני הקלט והמטרה.</div><div class="en">Describe the dataset, source, time range, version, latest update, number of records and columns, column meanings, and the chosen input features and target.</div></div>
+            <div class="step"><div class="step-title"><span class="he">3. חקר נתונים</span><span class="en">3. Data Exploration</span></div><div class="he">הצגת נתונים, info, describe, כמות מכל סיווג, זיהוי נתונים חסרים, לפחות 2 פקודות groupby, לפחות 5 גרפים, מסקנות והשערות, ו-heatmap לקורלציה.</div><div class="en">Show the data, info, describe, class counts, missing values, at least 2 groupby commands, at least 5 charts, conclusions and hypotheses, and a heatmap for correlation.</div></div>
+            <div class="step"><div class="step-title"><span class="he">4. עיבוד נתונים וטיוב</span><span class="en">4. Data Processing and Improvement</span></div><div class="he">טיפול בערכים חסרים, חריגים, כפילויות, איזון תגיות, נרמול, הנדסת מאפיינים והמרת משתנים קטגוריאליים למספריים.</div><div class="en">Handle missing values, outliers, duplicates, label balancing, normalization, feature engineering, and conversion of categorical variables to numeric values.</div></div>
+            <div class="step"><div class="step-title"><span class="he">5. למידת מכונה וביצועים</span><span class="en">5. Machine Learning and Performance</span></div><div class="he">בחירת מאפייני קלט, חלוקה ל-Train/Test, אימון לפחות שני אלגוריתמים, מטריצת בלבול, Accuracy, Precision, Recall, F1, ניתוח ומסקנות.</div><div class="en">Choose input features, split into Train/Test, train at least two algorithms, present a confusion matrix, Accuracy, Precision, Recall, F1, analysis, and conclusions.</div></div>
+            <div class="step"><div class="step-title"><span class="he">6. סיכום וכללי הגשה</span><span class="en">6. Summary and Submission Rules</span></div><div class="he">יש להגיש קובץ Colab מסודר, עם הסברים ותשובות מילוליות, כותרות ברורות, קוד מתועד, תצוגה קריאה ושילוב תקין של עברית ואנגלית.</div><div class="en">Submit an organized Colab file with explanations and written answers, clear titles, documented code, readable presentation, and proper use of Hebrew and English.</div></div>
+          </div>
         </div>
-        <div class="card" data-search-he="knn שכנים קרובים" data-search-en="knn nearest neighbors">
-          <h3 data-i18n="s4_title">KNN</h3>
-          <p data-i18n="s4_text">היכרות עם אלגוריתם השכנים הקרובים.</p>
-          <a href="5.1 KNN.pptx.pdf" target="_blank" data-i18n="open_slide">פתח מצגת</a>
+      </section>
+
+      <section class="section" id="slides">
+        <div class="section-header">
+          <h2><span class="he">מצגות לפי נושאים</span><span class="en">Slides by Topic</span></h2>
+          <p><span class="he">אוסף מצגות לקורס לפי נושאי הלימוד.</span><span class="en">A collection of course slides by learning topic.</span></p>
         </div>
-        <div class="card" data-search-he="knn sklearn ספריה" data-search-en="knn sklearn library">
-          <h3 data-i18n="s5_title">KNN with Sklearn</h3>
-          <p data-i18n="s5_text">שימוש בספריית sklearn.</p>
-          <a href="5.2 KNN with Sklearn.pptx.pdf" target="_blank" data-i18n="open_slide">פתח מצגת</a>
+
+        <div class="panel">
+          <div class="search-box">
+            <input type="text" id="slideSearch" placeholder="חפש מצגת / Search slides..." />
+          </div>
+
+          <div class="grid-3" id="slidesGrid">
+            <div class="card slide-card" data-title="python for ds מבוא לעבודה עם python במדעי הנתונים">
+              <h3>Python for DS</h3>
+              <p class="he">מבוא לעבודה עם Python במדעי הנתונים.</p>
+              <p class="en">Introduction to working with Python in data science.</p>
+              <a class="card-link" href="#" target="_blank" rel="noopener noreferrer"><span class="he">פתח מצגת</span><span class="en">Open Slides</span></a>
+            </div>
+
+            <div class="card slide-card" data-title="visualization גרפים והצגת נתונים">
+              <h3>Visualization</h3>
+              <p class="he">גרפים והצגת נתונים.</p>
+              <p class="en">Charts and data presentation.</p>
+              <a class="card-link" href="#" target="_blank" rel="noopener noreferrer"><span class="he">פתח מצגת</span><span class="en">Open Slides</span></a>
+            </div>
+
+            <div class="card slide-card" data-title="data preparation ניקוי והכנת נתונים">
+              <h3>Data Preparation</h3>
+              <p class="he">ניקוי והכנת נתונים לפני מודלים.</p>
+              <p class="en">Cleaning and preparing data before models.</p>
+              <a class="card-link" href="#" target="_blank" rel="noopener noreferrer"><span class="he">פתח מצגת</span><span class="en">Open Slides</span></a>
+            </div>
+
+            <div class="card slide-card" data-title="knn היכרות עם אלגוריתם השכנים הקרובים">
+              <h3>KNN</h3>
+              <p class="he">היכרות עם אלגוריתם השכנים הקרובים.</p>
+              <p class="en">Introduction to the K-Nearest Neighbors algorithm.</p>
+              <a class="card-link" href="#" target="_blank" rel="noopener noreferrer"><span class="he">פתח מצגת</span><span class="en">Open Slides</span></a>
+            </div>
+
+            <div class="card slide-card" data-title="knn with sklearn שימוש בספריית sklearn">
+              <h3>KNN with Sklearn</h3>
+              <p class="he">שימוש בספריית sklearn.</p>
+              <p class="en">Using the sklearn library.</p>
+              <a class="card-link" href="#" target="_blank" rel="noopener noreferrer"><span class="he">פתח מצגת</span><span class="en">Open Slides</span></a>
+            </div>
+
+            <div class="card slide-card" data-title="perceptron svm מסווגים לינאריים">
+              <h3>Perceptron & SVM</h3>
+              <p class="he">מסווגים לינאריים.</p>
+              <p class="en">Linear classifiers.</p>
+              <a class="card-link" href="#" target="_blank" rel="noopener noreferrer"><span class="he">פתח מצגת</span><span class="en">Open Slides</span></a>
+            </div>
+          </div>
         </div>
-        <div class="card" data-search-he="perceptron svm מסווגים לינאריים" data-search-en="perceptron svm classifiers linear">
-          <h3 data-i18n="s6_title">Perceptron & SVM</h3>
-          <p data-i18n="s6_text">מסווגים לינאריים.</p>
-          <a href="Percepton and SVM.pptx.pdf" target="_blank" data-i18n="open_slide">פתח מצגת</a>
+      </section>
+
+      <section class="section" id="datasets">
+        <div class="section-header">
+          <h2><span class="he">מאגרי נתונים</span><span class="en">Datasets</span></h2>
+          <p><span class="he">מקורות מומלצים למציאת datasets לפרויקטים.</span><span class="en">Recommended sources for finding datasets for projects.</span></p>
         </div>
-      </div>
+
+        <div class="panel">
+          <div class="chips">
+            <div class="chip"><span class="he">לחקר, ניתוח וסיווג</span><span class="en">For exploration, analysis, and classification</span></div>
+            <div class="chip"><span class="he">מומלץ לבחור מאגר עם תיעוד ברור</span><span class="en">Choose a dataset with clear documentation</span></div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Kaggle</h3>
+              <p class="he">מאגר גדול של datasets לפרויקטים.</p>
+              <p class="en">A large repository of datasets for projects.</p>
+              <a class="card-link" href="https://www.kaggle.com" target="_blank" rel="noopener noreferrer"><span class="he">כניסה</span><span class="en">Visit</span></a>
+            </div>
+
+            <div class="card">
+              <h3>Google Dataset Search</h3>
+              <p class="he">מנוע חיפוש למציאת datasets.</p>
+              <p class="en">A search engine for discovering datasets.</p>
+              <a class="card-link" href="https://datasetsearch.research.google.com" target="_blank" rel="noopener noreferrer"><span class="he">כניסה</span><span class="en">Visit</span></a>
+            </div>
+
+            <div class="card">
+              <h3>Data.gov</h3>
+              <p class="he">מאגר נתונים של הממשל.</p>
+              <p class="en">A government data repository.</p>
+              <a class="card-link" href="https://data.gov" target="_blank" rel="noopener noreferrer"><span class="he">כניסה</span><span class="en">Visit</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
-  </div>
-</section>
+  </main>
 
-<section id="datasets">
-  <div class="container">
-    <div class="section-box">
-      <h2 class="section-title" data-i18n="datasets_title">מאגרי נתונים</h2>
-      <div class="grid">
-        <div class="card">
-          <h3 data-i18n="d1_title">Kaggle</h3>
-          <p data-i18n="d1_text">מאגר גדול של datasets לפרויקטים.</p>
-          <a href="https://www.kaggle.com/datasets" target="_blank" data-i18n="enter_link">כניסה</a>
-        </div>
-        <div class="card">
-          <h3 data-i18n="d2_title">Google Dataset Search</h3>
-          <p data-i18n="d2_text">מנוע חיפוש למציאת datasets.</p>
-          <a href="https://datasetsearch.research.google.com/" target="_blank" data-i18n="enter_link">כניסה</a>
-        </div>
-        <div class="card">
-          <h3 data-i18n="d3_title">Data.gov</h3>
-          <p data-i18n="d3_text">מאגר נתונים של הממשל.</p>
-          <a href="https://data.gov/" target="_blank" data-i18n="enter_link">כניסה</a>
-        </div>
-      </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="he">Machine Learning Lab · נבנה בעיצוב חדש ובהיר</div>
+      <div class="en">Machine Learning Lab · Redesigned with a clean bright style</div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<footer id="tech">
-  <div class="container">
-    <div class="footer-box">
-      <h2 data-i18n="footer_title">מרכז טק</h2>
-      <p data-i18n="footer_text">קישור לאתר מרכז טק</p>
-      <a class="btn btn-primary" href="https://www.tech-center.org/" target="_blank" data-i18n="footer_btn">כניסה לאתר</a>
-    </div>
-  </div>
-</footer>
+  <script>
+    const body = document.body;
+    const btnHe = document.getElementById('btn-he');
+    const btnEn = document.getElementById('btn-en');
+    const slideSearch = document.getElementById('slideSearch');
+    const slideCards = document.querySelectorAll('.slide-card');
 
-<script>
-const translations = {
-  he: {
-    title: "Machine Learning Lab",
-    nav_home: "בית", nav_guidelines: "הנחיות לפרויקט", nav_guidelines_full: "הסבר מפורט", nav_slides: "מצגות לפי נושאים", nav_datasets: "מאגרי נתונים", nav_tech: "מרכז טק",
-    hero_title: "Machine Learning Lab",
-    hero_subtitle: "אתר הקורס ללמידת מכונה. כאן ניתן למצוא מצגות לפי נושאים, הנחיות לפרויקט ומאגרי נתונים מומלצים לפרויקטים.",
-    hero_btn_slides: "מצגות הקורס", hero_btn_guidelines: "הנחיות לפרויקט", hero_btn_details: "הסבר מפורט",
-    guidelines_title: "הנחיות לפרויקט",
-    g1_title: "שער ונושא המחקר", g1_text: "שם תלמיד/ה + ת״ז, שם המחקר, שנת לימודים, שם המורה, הקדמה קצרה ותמונה הקשורה למאגר או לפרויקט.",
-    g2_title: "תיאור הנתונים", g2_text: "תיאור קצר של מאגר הנתונים, מקור הנתונים, קישור למאגר, סוגי הנתונים במאגר והעמודות שיכולות לשמש כתכונות וכמטרה.",
-    g3_title: "חקר נתונים", g3_text: "טעינת נתונים, info, describe, לפחות 2 פקודות groupby, לפחות 5 גרפים שונים והצגת קורלציה עם heatmap.",
-    g4_title: "עיבוד ולמידת מכונה", g4_text: "ניקוי נתונים, איזון תגיות, נרמול, הנדסת מאפיינים, חלוקה ל-Train/Test, אימון לפחות שני אלגוריתמים ובחינת ביצועים.",
-    details_title: "הסבר מפורט על הפרויקט",
-    dsec1_title:"שער ונושא המחקר", dsec1_1:"שם תלמיד/ה + ת״ז", dsec1_2:"שם המחקר", dsec1_3:"שנת לימודים", dsec1_4:"שם המורה", dsec1_5:"הקדמה - תיאור קצר של מטרת המחקר ושל מה הסיווג", dsec1_6:"תמונה הקשורה למאגר הנתונים או לפרויקט",
-    dsec2_title:"תיאור הנתונים", dsec2_1:"תיאור קצר של מאגר הנתונים", dsec2_2:"מקור הנתונים: מאיפה נלקח, מי הכין, טווח זמנים, גרסאות ותאריך עדכון אחרון", dsec2_3:"קישור למאגר הנתונים", dsec2_4:"כמה רשומות, כמה עמודות, אילו סוגי נתונים ומה משמעות כל עמודה", dsec2_5:"אילו עמודות יכולות לשמש כתכונות לסיווג וכמטרה",
-    dsec3_title:"חקר נתונים", dsec3_1:"טעינת נתונים והצגה של נתונים מהמאגר", dsec3_2:"הצגת info על המאגר: סוגים, רשומות מלאות, כמות מכל סיווג ונתונים חסרים", dsec3_3:"שימוש ב-describe: ממוצעים, סטיות תקן, מינימום, חציונים ומקסימום", dsec3_4:"לפחות 2 פקודות groupby ולרשום מסקנה לכל פקודה", dsec3_5:"לפחות 5 סוגי גרפים שונים, כותרות, הסברים, מסקנות והשערות מכל גרף", dsec3_6:"הצגת קורלציה עם heatmap בין המאפיינים לשאלת המחקר",
-    dsec4_title:"עיבוד נתונים וטיוב", dsec4_1:"זיהוי ערכים חסרים - השלמה או הסרה בהתאם", dsec4_2:"זיהוי חריגים וטיפול (רשות)", dsec4_3:"זיהוי כפילויות וטיפול", dsec4_4:"איזון תגיות במקרי קיצון", dsec4_5:"נרמול הנתונים", dsec4_6:"הנדסת מאפיינים - הוספת והורדת משתנים", dsec4_7:"הפיכת משתנים קטגוריאליים למספריים, כולל One Hot Encoding",
-    dsec5_title:"למידת מכונה וביצועים", dsec5_1:"בחירת עמודות לקלט והסבר מדוע נבחרו או הוסרו", dsec5_2:"חלוקת הנתונים לקבוצת אימון וקבוצת בדיקה", dsec5_3:"אימון וחיזוי באמצעות לפחות שני אלגוריתמים שלמדנו", dsec5_4:"מטריצת בלבול, Accuracy, Precision, Recall, F1 וממוצעים", dsec5_5:"ניתוח ומסקנות", dsec5_6:"חקר השפעת שינוי היפר-פרמטרים על הביצועים ב-KNN וב-SVC", dsec5_7:"הצגת השינויים במדד ביצוע כללי כמו Accuracy או F1",
-    dsec6_title:"סיכום, כללי הגשה וקריטריונים", dsec6_1:"סיכום ומסקנות לגבי הנתונים, ההשערות והביצועים", dsec6_2:"רפלקציה אישית - מה למדתי, אתגרים, נושאים מעניינים והעמקה עצמית", dsec6_3:"יש להקפיד על כותרות בתאי טקסט בכל הסעיפים הרלוונטיים", dsec6_4:"יש לתעד את כל הקודים עם הערות", dsec6_5:"יש להגיש קובץ Colab מסודר עם הסברים ותשובות מילוליות", dsec6_6:"חובה לוודא שהכל קריא ושהשילוב של עברית ואנגלית תקין", dsec6_7:"מספר דוגמאות: 500 ויותר, לפחות 2 משתנים רציפים ו-2 בדידים", dsec6_8:"במקרה של סיווג: לפחות שתי מחלקות ופיזור יחסית אחיד בין קבוצות",
-    slides_title: "מצגות לפי נושאים", search_placeholder: "חפש מצגת...",
-    s1_title: "Python for DS", s1_text: "מבוא לעבודה עם Python במדעי הנתונים.",
-    s2_title: "Visualization", s2_text: "גרפים והצגת נתונים.",
-    s3_title: "Data Preparation", s3_text: "ניקוי והכנת נתונים לפני מודלים.",
-    s4_title: "KNN", s4_text: "היכרות עם אלגוריתם השכנים הקרובים.",
-    s5_title: "KNN with Sklearn", s5_text: "שימוש בספריית sklearn.",
-    s6_title: "Perceptron & SVM", s6_text: "מסווגים לינאריים.",
-    open_slide: "פתח מצגת",
-    datasets_title: "מאגרי נתונים",
-    d1_title: "Kaggle", d1_text: "מאגר גדול של datasets לפרויקטים.",
-    d2_title: "Google Dataset Search", d2_text: "מנוע חיפוש למציאת datasets.",
-    d3_title: "Data.gov", d3_text: "מאגר נתונים של הממשל.",
-    enter_link: "כניסה",
-    footer_title: "מרכז טק", footer_text: "קישור לאתר מרכז טק", footer_btn: "כניסה לאתר"
-  },
-  en: {
-    title: "Machine Learning Lab",
-    nav_home: "Home", nav_guidelines: "Project Guidelines", nav_guidelines_full: "Detailed Guide", nav_slides: "Slides by Topic", nav_datasets: "Datasets", nav_tech: "Tech Center",
-    hero_title: "Machine Learning Lab",
-    hero_subtitle: "The course website for machine learning. Here you can find slides by topic, project guidelines, and recommended datasets for projects.",
-    hero_btn_slides: "Course Slides", hero_btn_guidelines: "Project Guidelines", hero_btn_details: "Detailed Guide",
-    guidelines_title: "Project Guidelines",
-    g1_title: "Cover and Research Topic", g1_text: "Student name + ID, research title, school year, teacher name, a short introduction, and an image related to the dataset or project.",
-    g2_title: "Data Description", g2_text: "Short description of the dataset, source, link, data types, and which columns can be used as features and target.",
-    g3_title: "Data Exploration", g3_text: "Load data, use info and describe, include at least 2 groupby commands, at least 5 different charts, and a heatmap for correlation.",
-    g4_title: "Processing and Machine Learning", g4_text: "Data cleaning, label balancing, normalization, feature engineering, Train/Test split, training at least two algorithms, and performance evaluation.",
-    details_title: "Detailed Project Guide",
-    dsec1_title:"Cover and Research Topic", dsec1_1:"Student name + ID", dsec1_2:"Research title", dsec1_3:"School year", dsec1_4:"Teacher name", dsec1_5:"Short introduction about the research goal and classification target", dsec1_6:"An image related to the dataset or project",
-    dsec2_title:"Data Description", dsec2_1:"Short description of the dataset", dsec2_2:"Data source: where it came from, who prepared it, time range, versions, and last update", dsec2_3:"Link to the dataset", dsec2_4:"How many rows, columns, data types, and the meaning of each column", dsec2_5:"Which columns can be used as features and target",
-    dsec3_title:"Data Exploration", dsec3_1:"Load and display data from the dataset", dsec3_2:"Present info: categories, complete rows, class counts, and missing values", dsec3_3:"Use describe: averages, standard deviations, minimums, medians, and maximums", dsec3_4:"At least 2 groupby commands with a conclusion for each", dsec3_5:"At least 5 different chart types with titles, explanations, conclusions, and insights", dsec3_6:"Show correlation with a heatmap between features and the research question",
-    dsec4_title:"Data Processing and Cleaning", dsec4_1:"Identify missing values and complete or remove them", dsec4_2:"Identify outliers and handle them if needed", dsec4_3:"Identify duplicates and handle them", dsec4_4:"Balance labels in extreme cases", dsec4_5:"Normalize the data", dsec4_6:"Feature engineering - add and remove variables", dsec4_7:"Convert categorical variables to numeric, including One Hot Encoding",
-    dsec5_title:"Machine Learning and Performance", dsec5_1:"Select input columns and explain why they were chosen or removed", dsec5_2:"Split the data into training and testing sets", dsec5_3:"Train and predict using at least two algorithms learned in class", dsec5_4:"Confusion matrix, Accuracy, Precision, Recall, F1, and averages", dsec5_5:"Analysis and conclusions", dsec5_6:"Investigate the effect of hyperparameter changes in KNN and SVC", dsec5_7:"Present the changes in a general performance metric such as Accuracy or F1",
-    dsec6_title:"Summary, Submission Rules, and Criteria", dsec6_1:"Summary and conclusions about the data, hypotheses, and performance", dsec6_2:"Personal reflection - what I learned, challenges, interesting topics, and self-learning", dsec6_3:"Use titles in text boxes in all relevant sections", dsec6_4:"Document all code with comments", dsec6_5:"Submit an organized Colab file with explanations and written answers", dsec6_6:"Make sure everything is readable and that Hebrew/English mixing is displayed correctly", dsec6_7:"At least 500 samples, at least 2 continuous and 2 discrete variables", dsec6_8:"For classification: at least two classes and a relatively balanced class distribution",
-    slides_title: "Slides by Topic", search_placeholder: "Search slides...",
-    s1_title: "Python for DS", s1_text: "Introduction to Python for data science.",
-    s2_title: "Visualization", s2_text: "Charts and data presentation.",
-    s3_title: "Data Preparation", s3_text: "Cleaning and preparing data before models.",
-    s4_title: "KNN", s4_text: "Introduction to the nearest neighbors algorithm.",
-    s5_title: "KNN with Sklearn", s5_text: "Using the sklearn library.",
-    s6_title: "Perceptron & SVM", s6_text: "Linear classifiers.",
-    open_slide: "Open Slides",
-    datasets_title: "Datasets",
-    d1_title: "Kaggle", d1_text: "A large dataset repository for projects.",
-    d2_title: "Google Dataset Search", d2_text: "A search engine for finding datasets.",
-    d3_title: "Data.gov", d3_text: "Government open data repository.",
-    enter_link: "Open",
-    footer_title: "Tech Center", footer_text: "Link to the Tech Center website", footer_btn: "Visit Website"
-  }
-};
+    btnHe.addEventListener('click', () => {
+      body.classList.remove('hidden-he');
+      body.classList.add('hidden-en');
+      btnHe.classList.add('active');
+      btnEn.classList.remove('active');
+      document.documentElement.lang = 'he';
+      document.documentElement.dir = 'rtl';
+    });
 
-let currentLang = "he";
-function applyLanguage(lang){
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "he" ? "rtl" : "ltr";
-  document.title = translations[lang].title;
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (translations[lang][key]) el.textContent = translations[lang][key];
-  });
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
-    const key = el.getAttribute("data-i18n-placeholder");
-    if (translations[lang][key]) el.placeholder = translations[lang][key];
-  });
-  document.getElementById("btn-he").classList.toggle("active", lang === "he");
-  document.getElementById("btn-en").classList.toggle("active", lang === "en");
-}
-document.getElementById("btn-he").addEventListener("click", () => applyLanguage("he"));
-document.getElementById("btn-en").addEventListener("click", () => applyLanguage("en"));
+    btnEn.addEventListener('click', () => {
+      body.classList.remove('hidden-en');
+      body.classList.add('hidden-he');
+      btnEn.classList.add('active');
+      btnHe.classList.remove('active');
+      document.documentElement.lang = 'en';
+      document.documentElement.dir = 'ltr';
+    });
 
-const search = document.getElementById("searchSlides");
-const cards = document.querySelectorAll("#slidesGrid .card");
-search.addEventListener("input", () => {
-  const q = search.value.toLowerCase();
-  cards.forEach(card => {
-    const searchText = (currentLang === "he" ? card.dataset.searchHe : card.dataset.searchEn) + " " + card.innerText;
-    card.style.display = searchText.toLowerCase().includes(q) ? "block" : "none";
-  });
-});
-applyLanguage("he");
-</script>
-
+    slideSearch.addEventListener('input', function () {
+      const term = this.value.trim().toLowerCase();
+      slideCards.forEach(card => {
+        const text = card.dataset.title.toLowerCase();
+        card.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+  </script>
 </body>
 </html>
