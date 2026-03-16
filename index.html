@@ -197,24 +197,27 @@
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(212, 40, 151, 0.24);
+      background: #e6e8eb;
+      color: var(--text);
+      border: 1px solid #d7dbe0;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     }
 
     .btn-primary:hover {
-      background: var(--accent-dark);
-      transform: translateY(-1px);
+      background: #dde1e5;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
     }
 
     .btn-secondary {
-      background: #fff;
-      color: var(--accent);
-      border: 1px solid #f2bfdc;
+      background: #f1f3f5;
+      color: var(--text);
+      border: 1px solid #dfe3e7;
     }
 
     .btn-secondary:hover {
-      background: #fff7fb;
+      background: #e8ebee;
+      transform: translateY(-2px);
     }
 
     .hero-side {
@@ -376,6 +379,84 @@
     .hidden-he .he {
       display: none !important;
     }
+
+    
+    .topbar {
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .hero-card,
+    .mini-card,
+    .panel,
+    .card,
+    .step {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-card { animation-delay: 0.05s; }
+    .mini-card:nth-child(1) { animation-delay: 0.12s; }
+    .mini-card:nth-child(2) { animation-delay: 0.18s; }
+
+    .card,
+    .step,
+    .panel {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover,
+    .step:hover,
+    .mini-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+      border-color: #dddfe3;
+    }
+
+    .brand-badge {
+      animation: softPulse 3.2s ease-in-out infinite;
+    }
+
+    .nav a,
+    .card-link,
+    .lang-btn,
+    .btn {
+      transition: all 0.25s ease;
+    }
+
+    .section {
+      animation: fadeUp 0.85s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes softPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.04);
+      }
+    }
+
 
     @media (max-width: 980px) {
       .hero-grid,
