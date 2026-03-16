@@ -542,12 +542,12 @@
     }
 
 
-    
+
     .slide-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 250px;
+      min-height: 240px;
     }
 
     .slide-actions {
@@ -557,8 +557,7 @@
       margin-top: 14px;
     }
 
-    .slide-open-btn,
-    .slide-new-tab {
+    .slide-open-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -569,9 +568,6 @@
       cursor: pointer;
       transition: all 0.25s ease;
       font-family: inherit;
-    }
-
-    .slide-open-btn {
       background: linear-gradient(180deg, #f1f2f4 0%, #e6e8eb 100%);
       color: var(--text);
       border: 1px solid #d7dbe0;
@@ -583,69 +579,6 @@
       box-shadow: 0 14px 28px rgba(17,24,39,0.08);
     }
 
-    .slide-new-tab {
-      background: #fff;
-      color: var(--accent);
-      border: 1px solid #f0c8df;
-    }
-
-    .slide-new-tab:hover {
-      background: #fff7fb;
-      transform: translateY(-2px);
-    }
-
-    .viewer-panel {
-      display: none;
-      margin-top: 22px;
-      background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
-      border: 1px solid #eceef0;
-      border-radius: 28px;
-      box-shadow: 0 14px 34px rgba(17,24,39,0.06);
-      overflow: hidden;
-    }
-
-    .viewer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 22px;
-      border-bottom: 1px solid #eceef0;
-      background: linear-gradient(90deg, rgba(212,40,151,0.05), rgba(234,235,236,0.45));
-    }
-
-    .viewer-title {
-      font-weight: 800;
-      color: var(--accent);
-      font-size: 1.1rem;
-    }
-
-    .viewer-subtitle {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .viewer-frame-wrap {
-      height: 880px;
-      background: #f6f7f9;
-    }
-
-    .viewer-frame {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #fff;
-    }
-
-    @media (max-width: 980px) {
-      .viewer-frame-wrap {
-        height: 640px;
-      }
-      .viewer-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
 
     @media (max-width: 980px) {
       .hero-grid,
@@ -824,14 +757,8 @@
       
       <section class="section" id="slides">
         <div class="section-header">
-          <h2>
-            <span class="he">מצגות לפי נושאים</span>
-            <span class="en">Slides by Topic</span>
-          </h2>
-          <p>
-            <span class="he">כל קובצי המצגות וה־PDF שמופיעים בפרויקט נגישים כאן מתוך הדף.</span>
-            <span class="en">All slide and PDF files listed in the project are accessible here directly from the page.</span>
-          </p>
+          <h2><span class="he">מצגות לפי נושאים</span><span class="en">Slides by Topic</span></h2>
+          <p><span class="he">כל קובצי ה־PDF שמופיעים בפרויקט נפתחים ישירות בלחיצה על הכפתור.</span><span class="en">All PDF files listed in the project open directly when you click the button.</span></p>
         </div>
 
         <div class="panel">
@@ -848,13 +775,9 @@
                 <p class="en">Introduction to working with Python in data science.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./2.1 Python for DS.pptx.pdf", "2.1 Python for DS")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./2.1 Python for DS.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./2.1%20Python%20for%20DS.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -865,13 +788,9 @@
                 <p class="en">Charts and data presentation.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./3.1 Visualization.pptx.pdf", "3.1 Visualization")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./3.1 Visualization.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./3.1%20Visualization.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -882,13 +801,9 @@
                 <p class="en">Linear regression using sklearn.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./4.2 Linear regression with sklearn.pptx.pdf", "4.2 Linear Regression with Sklearn")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./4.2 Linear regression with sklearn.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./4.2%20Linear%20regression%20with%20sklearn.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -899,13 +814,9 @@
                 <p class="en">Analytic solution for linear regression.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./4.3 Linear regresssion analytic solution.pptx.pdf", "4.3 Linear Regression Analytic Solution")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./4.3 Linear regresssion analytic solution.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./4.3%20Linear%20regresssion%20analytic%20solution.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -916,13 +827,9 @@
                 <p class="en">Introduction to the K-Nearest Neighbors algorithm.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./5.1 KNN.pptx.pdf", "5.1 KNN")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./5.1 KNN.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./5.1%20KNN.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -933,13 +840,9 @@
                 <p class="en">Using the sklearn library.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./5.2 KNN with Sklearn.pptx.pdf", "5.2 KNN with Sklearn")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./5.2 KNN with Sklearn.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./5.2%20KNN%20with%20Sklearn.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -950,13 +853,9 @@
                 <p class="en">KNN code implementation.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./5.3 KNN with code implementation.pptx.pdf", "5.3 KNN with Code Implementation")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./5.3 KNN with code implementation.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./5.3%20KNN%20with%20code%20implementation.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -967,13 +866,9 @@
                 <p class="en">Cleaning and preparing data before models.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./Data preparation.pptx.pdf", "Data Preparation")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./Data preparation.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./Data%20preparation.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -984,13 +879,9 @@
                 <p class="en">Perceptron and SVM.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./Percepton and SVM.pptx.pdf", "Percepton and SVM")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./Percepton and SVM.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./Percepton%20and%20SVM.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -1001,13 +892,9 @@
                 <p class="en">Performance indicators and model evaluation.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./Performance Indicators updated.pptx.pdf", "Performance Indicators")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./Performance Indicators updated.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./Performance%20Indicators%20updated.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -1018,13 +905,9 @@
                 <p class="en">Feature engineering.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./14.1 Feature engineering.pdf", "14.1 Feature Engineering")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./14.1 Feature engineering.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./14.1%20Feature%20engineering.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -1035,13 +918,9 @@
                 <p class="en">A presentation on machine learning application.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./יישום מכונה לומדת.pptx.pdf", "יישום מכונה לומדת")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./יישום מכונה לומדת.pptx.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./%D7%99%D7%99%D7%A9%D7%95%D7%9D%20%D7%9E%D7%9B%D7%95%D7%A0%D7%94%20%D7%9C%D7%95%D7%9E%D7%93%D7%AA.pptx.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
             </div>
@@ -1052,31 +931,11 @@
                 <p class="en">Datasets and tables reference.</p>
               </div>
               <div class="slide-actions">
-                <button class="slide-open-btn" type="button" onclick='openSlide("./מאגרי נתונים וטבלאות.pdf", "מאגרי נתונים וטבלאות")'>
-                  <span class="he">הצג בתוך האתר</span>
-                  <span class="en">Show in Site</span>
-                </button>
-                <a class="slide-new-tab" href="./מאגרי נתונים וטבלאות.pdf" target="_blank" rel="noopener noreferrer">
-                  <span class="he">פתח בחלון חדש</span>
-                  <span class="en">Open in New Tab</span>
+                <a class="slide-open-btn" href="./%D7%9E%D7%90%D7%92%D7%A8%D7%99%20%D7%A0%D7%AA%D7%95%D7%A0%D7%99%D7%9D%20%D7%95%D7%98%D7%91%D7%9C%D7%90%D7%95%D7%AA.pdf" target="_blank" rel="noopener noreferrer">
+                  <span class="he">פתח מצגת PDF</span>
+                  <span class="en">Open PDF Slide</span>
                 </a>
               </div>
-            </div>
-          </div>
-
-          <div class="viewer-panel" id="viewerPanel">
-            <div class="viewer-header">
-              <div>
-                <div class="viewer-title" id="viewerTitle"><span class="he">תצוגת מצגת בתוך האתר</span><span class="en">Slide Viewer Inside the Site</span></div>
-                <div class="viewer-subtitle" id="viewerSubtitle"><span class="he">המצגת תיפתח רק לאחר לחיצה על כפתור פתיחה.</span><span class="en">The slide will open only after clicking a slide button.</span></div>
-              </div>
-              <a class="slide-new-tab" id="viewerExternalLink" href="#" target="_blank" rel="noopener noreferrer">
-                <span class="he">פתח את הקובץ בחלון חדש</span>
-                <span class="en">Open File in New Tab</span>
-              </a>
-            </div>
-            <div class="viewer-frame-wrap">
-              <iframe class="viewer-frame" id="slideViewer" src="about:blank"></iframe>
             </div>
           </div>
         </div>
@@ -1137,11 +996,6 @@
     const btnEn = document.getElementById('btn-en');
     const slideSearch = document.getElementById('slideSearch');
     const slideCards = document.querySelectorAll('.slide-card');
-    const slideViewer = document.getElementById('slideViewer');
-    const viewerTitle = document.getElementById('viewerTitle');
-    const viewerSubtitle = document.getElementById('viewerSubtitle');
-    const viewerExternalLink = document.getElementById('viewerExternalLink');
-    const viewerPanel = document.getElementById('viewerPanel');
 
     btnHe.addEventListener('click', () => {
       body.classList.remove('hidden-he');
@@ -1150,7 +1004,6 @@
       btnEn.classList.remove('active');
       document.documentElement.lang = 'he';
       document.documentElement.dir = 'rtl';
-      viewerSubtitle.textContent = 'המצגת מוצגת בתוך האתר. אפשר גם לפתוח בחלון חדש.';
     });
 
     btnEn.addEventListener('click', () => {
@@ -1160,22 +1013,7 @@
       btnHe.classList.remove('active');
       document.documentElement.lang = 'en';
       document.documentElement.dir = 'ltr';
-      viewerSubtitle.textContent = 'The slide is displayed inside the site. You can also open it in a new tab.';
     });
-
-    function openSlide(filePath, title) {
-      const encodedPath = encodeURI(filePath);
-      slideViewer.src = encodedPath + '#view=FitH';
-      viewerExternalLink.href = encodedPath;
-      viewerTitle.textContent = title;
-      viewerSubtitle.textContent = body.classList.contains('hidden-en')
-        ? 'המצגת מוצגת בתוך האתר. אפשר גם לפתוח בחלון חדש.'
-        : 'The slide is displayed inside the site. You can also open it in a new tab.';
-      viewerPanel.style.display = 'block';
-      viewerPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    window.openSlide = openSlide;
 
     slideSearch.addEventListener('input', function () {
       const term = this.value.trim().toLowerCase();
